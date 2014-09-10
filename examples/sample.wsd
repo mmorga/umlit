@@ -1,0 +1,49 @@
+title xyz
+
+a->b:text
+a-->b:text 
+
+a->b: b starts something
+activate b
+b->A: something else
+b->a: done
+deactivate b
+
+a->a:text
+
+alt text1
+    A->B: text
+else text2
+	loop until done
+	    A->B: text
+	end
+end
+
+opt text
+    A->B: text
+end
+
+loop text
+    A->B: text
+end
+
+note over A,B: Over A, B
+note left of A: left of A
+note right of A
+    multiline
+    text right of A
+end note
+
+ Add text to the side of the diagram by
+ indenting it with a space.
+
+A->B: Wow!
+
+
+state over A: Initial state
+
+parallel {
+    A->B: signal 1
+    B->C: signal2
+}
+
