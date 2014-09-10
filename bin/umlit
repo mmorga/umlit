@@ -15,23 +15,23 @@ class UmlitApp < Thor
   class_option :theme, type: :string, default: "default", aliases: "-t", desc: "Set the theme, possible values: default"
 
   desc "activity [file]", "Produce an activity diagram from the [file]"
-  def activity(file, outfile, options)
+  def activity(_file, _outfile, _options)
   end
 
   desc "component [file]", "Produce a component diagram from the [file]"
-  def component(file, outfile, options)
+  def component(_file, _outfile, _options)
   end
 
   desc "deployment [file]", "Produce a deployment diagram from the [file]"
-  def deployment(file, outfile, options)
+  def deployment(_file, _outfile, _options)
   end
 
   desc "sequence [file]", "Produce a sequence diagram from the [file]"
-  def sequence(file, outfile, options)
+  def sequence(_file, _outfile, _options)
   end
 
   def self.source_root
-      File.dirname(__FILE__)
+    File.dirname(__FILE__)
   end
 end
 UmlitApp.start
