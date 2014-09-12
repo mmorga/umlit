@@ -1,4 +1,15 @@
 #!/usr/bin/env ruby -wU
+#
+# Refactoring Plan
+#
+# * Turn various global variables into a class or struct
+# * Complete separation of size/position calc from SVG render
+# * Make a better parser - maybe an inside DSL for Ruby or a complete clean outside DSL
+# * Eliminate dependency on RMagick
+# * Allow style customization
+# * Add groups where appropriate in SVG render for a nicer diagram to manipulate in inkscape
+# * Create a javascript tool to permit navigating through large diagrams
+# * Look into a way to overlay actor headings when zoomed in or scrolled down
 
 require 'RMagick'
 
@@ -12,7 +23,6 @@ def text_size(text, font_size = 10, font_weight = Magick::NormalWeight,
   label.font_style = font_style
   label.font_weight = font_weight
   label.gravity = Magick::CenterGravity
-  # label.density = "96x96"
   label.text(0, 0, text)
   label.get_type_metrics(text)
 end
