@@ -18,4 +18,5 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "ttfunk"
   gem.add_runtime_dependency "rmagick"
   gem.add_runtime_dependency "parslet"
+  gem.add_runtime_dependency "builder"
 end

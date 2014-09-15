@@ -1,0 +1,42 @@
+text {
+  font-family: Helvetica;
+  font-size: 10pt;
+}
+.participant,.group {
+  font-weight: bold;
+}
+rect {
+  fill: #fff;
+}
+rect,line,path {
+  stroke: #000;
+  stroke-width: 1;
+}
+path,line {
+  fill: none;
+}
+.signal {
+  marker-end: url(#FilledArrow_Marker);
+}
+.reply {
+  marker-end: url(#OpenArrow_Marker);
+}
+.group-box {
+  stroke: #008;
+  fill: none;
+  stroke-width: 2;
+}
+.activation-box {
+  fill: #fff;
+}
+.group-box-title {
+  stroke: #008;
+  fill: #fff;
+}
+.note-box {
+  stroke: #800;
+  fill: #fff;
+}
+.note {
+  font-color: #400;
+}

@@ -1,37 +1,42 @@
 #!/usr/bin/env ruby
 
 require 'thor'
+require 'umlit'
+
 class UmlitApp < Thor
-  include Thor::Actions
+  # include Thor::Actions
 
-  map "-a" => :activity
-  map "-c" => :component
-  map "-d" => :deployment
-  map "-s" => :sequence
+  # map "-a" => :activity
+  # map "-c" => :component
+  # map "-d" => :deployment
+  # map "-s" => :sequence
 
-  class_option :css, type: :string, desc: "Specify your own css style for the diagram"
-  class_option :outfile, type: :string, aliases: "-o", desc: "Output file for the diagram"
-  class_option :force, type: :boolean, default: false, aliases: "-f", desc: "Force overwrite of output diagram file"
-  class_option :theme, type: :string, default: "default", aliases: "-t", desc: "Set the theme, possible values: default"
+  # class_option :css, type: :string, desc: "Specify your own css style for the diagram"
+  # class_option :outfile, type: :string, aliases: "-o", desc: "Output file for the diagram"
+  # class_option :force, type: :boolean, default: false, aliases: "-f", desc: "Force overwrite of output diagram file"
+  # class_option :theme, type: :string, default: "default", aliases: "-t", desc: "Set the theme, possible values: default"
 
-  desc "activity [file]", "Produce an activity diagram from the [file]"
-  def activity(_file, _outfile, _options)
+  # desc "activity [file]", "Produce an activity diagram from the [file]"
+  # def activity(_file, _outfile, _options)
+  # end
+
+  # desc "component [file]", "Produce a component diagram from the [file]"
+  # def component(_file, _outfile, _options)
+  # end
+
+  # desc "deployment [file]", "Produce a deployment diagram from the [file]"
+  # def deployment(_file, _outfile, _options)
+  # end
+
+  desc "sequence FILE", "Produce a sequence diagram from the FILE"
+  def sequence(file)
+    file.to_a.each do |f|
+      Umlit::SequenceDiagram.create(f)
+    end
   end
 
-  desc "component [file]", "Produce a component diagram from the [file]"
-  def component(_file, _outfile, _options)
-  end
-
-  desc "deployment [file]", "Produce a deployment diagram from the [file]"
-  def deployment(_file, _outfile, _options)
-  end
-
-  desc "sequence [file]", "Produce a sequence diagram from the [file]"
-  def sequence(_file, _outfile, _options)
-  end
-
-  def self.source_root
-    File.dirname(__FILE__)
-  end
+  # def self.source_root
+  #   File.dirname(__FILE__)
+  # end
 end
-UmlitApp.start
+UmlitApp.start(ARGV)
