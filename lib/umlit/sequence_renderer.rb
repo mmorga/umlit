@@ -78,7 +78,7 @@ module Umlit
                       "xmlns:xlink" => "http://www.w3.org/1999/xlink") do |svg|
         draw_defs(svg)
         svg.title(sequence.title)
-
+        svg.rect(x: 0, y: 0, width: diagram_width, height: diagram_height, fill: 'white', stroke: 'none')
         draw_actors_lifelines(svg)
         draw_messages(svg)
         draw_activations(svg)
