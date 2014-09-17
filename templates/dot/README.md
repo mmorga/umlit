@@ -1,0 +1,1 @@
+This folder contains Graphviz templates for building diagrams.

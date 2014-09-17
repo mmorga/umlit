@@ -1,0 +1,9 @@
+cluster {{name}} {
+  {{#attributes}}
+  {{> attribute}};
+  {{/attributes}}
+
+  {{#nodes}}
+  {{> node}}
+  {{/nodes}}
+}

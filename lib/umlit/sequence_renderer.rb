@@ -1,4 +1,4 @@
-require 'builder'
+require 'nokogiri'
 
 module Umlit
   # TODO:

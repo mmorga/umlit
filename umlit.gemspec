@@ -15,5 +15,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Umlit::VERSION
   gem.add_runtime_dependency "rmagick"
-  gem.add_runtime_dependency "builder"
+  gem.add_runtime_dependency "nokogiri"
+  gem.add_runtime_dependency "mustache"
 end

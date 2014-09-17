@@ -3,12 +3,18 @@
 require 'umlit'
 
 if ARGV.empty?
-  files = Dir.glob("*.wsd")
+  # TODO: output a usage doc and exit
 else
   files = ARGV
 end
 
 files.each do |f|
   puts "Rendering #{f}"
-  Umlit::SequenceDiagram.create(f)
+  # TODO: Use a factory class here to select the appropriate diagram class
+  case File.extname(f)
+  when ".xsd"
+    Umlit::XsdClassDiagram.create(f)
+  when ".wsd"
+    Umlit::SequenceDiagram.create(f)
+  end
 end

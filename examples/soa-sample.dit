@@ -1,0 +1,52 @@
+SoaDiagram.draw do
+  title "Public Ticket API"
+
+  package do
+    title "Customer"
+    customer person("Customer")
+    snow component("ServiceNow")
+    tss component("Ticket Sync\nService")
+  end
+
+  package do
+    title "Automation Services"
+    repose service("Repose")
+    bpi component("Business\nProcess\nIntegration")
+    cam component("Core\nAnalytics\nModule")
+    ngaf component("Next-Gen\nAutomation\nFramework")
+    ticketchangestate datastore("Ticket\nChange\nMapping DB")
+  end
+
+  package do
+    title "Public Services"
+    cloudfeeds service("Repose\nCloud Feeds")
+    ci component("Cloud Identity")
+    myrackspace component("MyRackspace")
+  end
+
+  package do
+    title "Racker Tools"
+    core component("Core")
+  end
+
+  racker person("Racker")
+
+  racker.message(core, "Create/Update Ticket")
+  customer.message(snow)
+  snow.message(tss, "Create/Update\nTickets")
+  tss.message(snow, "Sync\nTicket\nState")
+  tss.message(myrackspace, "Get\nAPI Key")
+  tss.message(ci, "Get\nAuth Token")
+  tss.message(repose, "Create/Update\nTickets")
+  repose.message(tss, "Read Feed")
+  cloudfeeds.message(repose, "Read Feed")
+  repose.message(bpi, "Create/Update Tickets\nGet Device Info")
+  core.message(bpi, "Device, Contacts, Categories")
+  ngaf.message(core, "Create/Update\nTicket")
+  ngaf.message(ngaf, "Run Process\nTicket Change\nand Format for\nCloud Feeds")
+  ngaf.message(cloudfeeds, "Post Ticket/Device Event")
+  core.message(cam)
+  cam.message(ngaf)
+  bpi.message(ngaf)
+  bpi.message(ticketchangestate)
+end
