@@ -4,6 +4,7 @@ module Umlit
       attr_reader :name, :value
 
       self.template_path = File.dirname(__FILE__)
+      self.template_file = File.join(self.template_path, "attribute.mustache")
       def initialize(name = "", value = "")
         @name = name
         @value = case value[0]

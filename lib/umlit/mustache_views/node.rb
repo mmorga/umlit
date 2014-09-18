@@ -10,6 +10,10 @@ module Umlit
         @name = name
         @attributes = attributes.map { |k, v| Attribute.new(k, v) }
       end
+
+      def attribute_list
+        @attributes.map(&:render).join(",")
+      end
     end
 
     class EdgeNode < Node

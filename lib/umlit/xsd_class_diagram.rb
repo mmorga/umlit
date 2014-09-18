@@ -1,24 +1,29 @@
 require "nokogiri"
 
-# TODO: handle annotations
+# TODO: handle annotations - notes?
 # TODO: handle namespaces - option to put namespaces in a cluster
+# TODO: handle schema imports - how? what? related to namespaces
 # TODO: Add an option to export only the items related to a single element or type
-# TODO: handle schema includes - make this optional
-# TODO: handle schema imports
-# TODO: Fix dot output on node attributes (remove the trailing ',')
 module Umlit
   class XsdClassDiagram
-    attr_reader :xsd, :root_schema_file, :graph, :included_schemas
+    attr_reader :xsd, :root_schema_file, :graph, :included_schema_files
+    attr_accessor :include_schemas
 
-    def initialize
+    DEFAULT_OPTS = {
+      include_schemas: true # Include schemas referenced in an include element in the diagram
+    }
+    def initialize(opts = {})
       @xsd = nil
       @root_schema_file = nil
       @graph = nil
-      @included_schemas = Set.new
+      @included_schema_files = Set.new
+
+      options = DEFAULT_OPTS.merge(opts)
+      @include_schemas = options[:include_schemas]
     end
 
-    def self.create(infile)
-      xsd_class_diagram = new
+    def self.create(infile, opts = {})
+      xsd_class_diagram = new(opts)
       xsd_class_diagram.draw(infile)
     end
 
@@ -46,7 +51,7 @@ module Umlit
 
     def without_namespace(str)
       return nil if str.nil?
-      str.sub(/.+:/, '')
+      str.sub("#{@target_prefix}:", '')
     end
 
     def add_element(node)
@@ -94,7 +99,7 @@ module Umlit
 
       compositions.each do |el|
         comp = without_namespace(el.attr("type") || el.attr("ref"))
-        next if %w(string link date boolean integer int).include?(comp)
+        next if outside_target_namespace?(comp)
         puts el.inspect if comp.nil? || comp == ''
         min_occurs = el.attr("minOccurs") || "1"
         max_occurs = el.attr("maxOccurs") || "1"
@@ -128,23 +133,28 @@ module Umlit
       end
       unless node.css('union').empty?
         node.css('union').attr("memberTypes").value.split(" ").each do |union_type|
-          types << union_type
           union_type = without_namespace(union_type)
-          next if %w(string link date boolean integer int).include?(union_type)
+          types << union_type
+          next if outside_target_namespace?(union_type)
           graph.nodes << MustacheViews::EdgeNode.new(union_type, name, "arrowhead" => "diamond", "taillabel" => "1")
         end
         stereotype = "union"
-        specialization = nil # MustacheViews::Union.new("union", types)
+        specialization = nil
       end
       specialization = node.css('list') if specialization == ""
-      class_label = MustacheViews::ClassLabel.new(name, stereotype) # , {}, []) #, enumerations)
+      class_label = MustacheViews::ClassLabel.new(name, stereotype)
       class_label.lines << MustacheViews::SimpleType.new(
         specialization, restrictions, types, enumerations)
       label = class_label.render
       graph.nodes << MustacheViews::Node.new(name, "label" => label)
     end
 
-    def populate_graph(xsd)
+    def outside_target_namespace?(name)
+      parts = name.split(":")
+      parts.size > 1 && parts.first != @target_prefix
+    end
+
+    def populate_graph
       xsd.css('schema').children.each do |node|
         case node.name
         when 'element'
@@ -157,18 +167,19 @@ module Umlit
       end
     end
 
-    def collect_included_files(xsd)
-      xsd.css('include').map do |include_element|
-        included_schemas.add(include_element.attr('schemaLocation'))
+    def collect_included_files
+      return unless include_schemas
+      xsd.css('include').map do |i|
+        included_schema_files.add(i.attr('schemaLocation'))
       end
     end
 
     def add_schema_file_to_graph(filename)
       @xsd = Nokogiri::XML(File.read(filename))
       xsd.root.default_namespace = xsd.root.namespace.href
-      collect_included_files(xsd)
-      puts "included_schemas: #{included_schemas.inspect}"
-      populate_graph(xsd)
+      @target_prefix = xsd.root.namespaces.key(xsd.root.attr("targetNamespace")).sub(/.+:/, '')
+      collect_included_files
+      populate_graph
     end
 
     def draw(infile)
@@ -179,7 +190,7 @@ module Umlit
 
       add_schema_file_to_graph(infile)
 
-      included_schemas.each do |f|
+      included_schema_files.each do |f|
         add_schema_file_to_graph(File.join(@schema_directory, f))
       end
       outfile = "#{schema_name}.dot"
