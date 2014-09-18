@@ -3,9 +3,17 @@ module Umlit
     class Attribute < Mustache
       attr_reader :name, :value
 
-      def initialize
-        @name = ""
-        @value = ""
+      self.template_path = File.dirname(__FILE__)
+      def initialize(name = "", value = "")
+        @name = name
+        @value = case value[0]
+                 when "<"
+                   "<#{value}>"
+                 when "\""
+                   value
+                 else
+                   "\"#{value}\""
+        end
       end
     end
   end

@@ -3,19 +3,22 @@ module Umlit
     class Node < Mustache
       attr_reader :name, :attributes
 
-      def initialize
-        @name = ""
-        @subgraphs = []
-        @nodes = []
+      # self.template_file = File.join(File.dirname(__FILE__), "node.mustache")
+      # self.template_path = File.join(File.dirname(__FILE__), "../../..")
+      self.template_path = File.dirname(__FILE__)
+      def initialize(name = "", attributes = {})
+        @name = name
+        @attributes = attributes.map { |k, v| Attribute.new(k, v) }
       end
     end
 
     class EdgeNode < Node
-      attr_reader :from, :to
+      attr_reader :from, :to, :name
 
-      def initialize
-        @from = ""
-        @to = ""
+      def initialize(from = "", to = "", attributes = {})
+        @from = from
+        @to = to
+        super("#{from} -> #{to}", attributes)
       end
 
       def name

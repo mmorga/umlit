@@ -1,0 +1,20 @@
+<table{{{table_attributes}}}>
+  <tr>
+    <td><font{{{stereotype_font_attributes}}}>&lt;&lt;{{stereotype}}&gt;&gt;</font><br/><font{{{title_font_attributes}}}>{{name}}</font></td>
+  </tr>
+  {{#attributes?}}
+  <hr/>
+  {{/attributes?}}
+  {{#attributes}}
+  {{> class_attribute}}
+  {{/attributes}}
+  {{#methods?}}
+  <hr/>
+  {{/methods?}}
+  {{#methods}}
+  {{> class_method}}
+  {{/methods}}
+  {{#lines}}
+  {{> line}}
+  {{/lines}}
+</table>

@@ -1,0 +1,23 @@
+{{{specialization.render}}}
+{{#restrictions?}}
+<hr/>
+{{/restrictions?}}
+{{#restrictions}}
+<tr>
+  <td>{{{value}}}</td>
+</tr>
+{{/restrictions}}
+{{#enumerations?}}
+<hr/>
+{{/enumerations?}}
+{{#enumerations}}
+{{> class_enumeration}}
+{{/enumerations}}
+{{#types?}}
+<hr/>
+{{/types?}}
+{{#types}}
+<tr>
+  <td>{{{value}}}</td>
+</tr>
+{{/types}}
