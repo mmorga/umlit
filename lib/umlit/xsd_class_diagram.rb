@@ -3,10 +3,20 @@ require "nokogiri"
 # TODO: handle annotations
 # TODO: handle namespaces - option to put namespaces in a cluster
 # TODO: Add an option to export only the items related to a single element or type
-# TODO: handle schema includes
+# TODO: handle schema includes - make this optional
 # TODO: handle schema imports
+# TODO: Fix dot output on node attributes (remove the trailing ',')
 module Umlit
   class XsdClassDiagram
+    attr_reader :xsd, :root_schema_file, :graph, :included_schemas
+
+    def initialize
+      @xsd = nil
+      @root_schema_file = nil
+      @graph = nil
+      @included_schemas = Set.new
+    end
+
     def self.create(infile)
       xsd_class_diagram = new
       xsd_class_diagram.draw(infile)
@@ -28,11 +38,10 @@ module Umlit
     end
 
     def create_graph(name)
-      graph = MustacheViews::Graph.new(name)
+      @graph = MustacheViews::Graph.new(name)
       graph.nodes << graph_settings
       graph.nodes << node_settings
       graph.nodes << edge_settings
-      graph
     end
 
     def without_namespace(str)
@@ -40,29 +49,28 @@ module Umlit
       str.sub(/.+:/, '')
     end
 
-    def add_element(node, graph)
+    def add_element(node)
       name = node.attr("name")
       type = without_namespace(node.attr("type"))
       label = MustacheViews::ClassLabel.new(name, node.name).render
       graph.nodes << MustacheViews::Node.new(name, "label" => label)
       graph.nodes << MustacheViews::EdgeNode.new(name, type, "arrowhead" => "onormal")
-      graph
     end
 
     # TODO: refactor this big mess
-    def add_complex_type(node, graph)
+    def add_complex_type(node)
       name = node.attr("name")
       # type = without_namespace(node.attr("type"))
       compositions = []
       attributes = {}
       methods = []
-      node.css('xs|attribute').each do |a|
+      node.css('attribute').each do |a|
         attr_name = a.attr("name")
         attr_type = without_namespace(a.attr("type"))
         attributes[attr_name] = attr_type
         compositions << a unless attr_type.nil?
       end
-      node.css('xs|sequence').children.each do |a|
+      node.css('sequence').children.each do |a|
         next if a.instance_of?(Nokogiri::XML::Text)
         if a.name == "choice"
           a.children.each do |cc|
@@ -98,17 +106,15 @@ module Umlit
         end
         graph.nodes << MustacheViews::EdgeNode.new(comp, name, "arrowhead" => "diamond", "taillabel" => edge_label)
       end
-
-      graph
     end
 
-    def add_simple_type(node, graph)
+    def add_simple_type(node)
       name = node.attr("name")
-      stereotype = node.css('xs|enumeration').empty? ? node.name : "enumeration"
+      stereotype = node.css('enumeration').empty? ? node.name : "enumeration"
       enumerations = []
       restrictions = []
       types = []
-      if (restriction = node.css('xs|restriction').first)
+      if (restriction = node.css('restriction').first)
         specialization = MustacheViews::Restriction.new(restriction.name, restriction.attr("base"))
         restriction.children.each do |child|
           case child.name
@@ -120,8 +126,8 @@ module Umlit
           end
         end
       end
-      unless node.css('xs|union').empty?
-        node.css('xs|union').attr("memberTypes").value.split(" ").each do |union_type|
+      unless node.css('union').empty?
+        node.css('union').attr("memberTypes").value.split(" ").each do |union_type|
           types << union_type
           union_type = without_namespace(union_type)
           next if %w(string link date boolean integer int).include?(union_type)
@@ -130,43 +136,52 @@ module Umlit
         stereotype = "union"
         specialization = nil # MustacheViews::Union.new("union", types)
       end
-      specialization = node.css('xs|list') if specialization == ""
+      specialization = node.css('list') if specialization == ""
       class_label = MustacheViews::ClassLabel.new(name, stereotype) # , {}, []) #, enumerations)
       class_label.lines << MustacheViews::SimpleType.new(
         specialization, restrictions, types, enumerations)
       label = class_label.render
       graph.nodes << MustacheViews::Node.new(name, "label" => label)
-      graph
     end
 
-    def populate_graph(graph, xsd)
-      xsd.css('xs|schema').children.each do |node|
-        graph =
+    def populate_graph(xsd)
+      xsd.css('schema').children.each do |node|
         case node.name
         when 'element'
-          add_element(node, graph)
+          add_element(node)
         when 'complexType'
-          add_complex_type(node, graph)
+          add_complex_type(node)
         when 'simpleType'
-          add_simple_type(node, graph)
-        else
-          graph
+          add_simple_type(node)
         end
       end
-      graph
     end
 
-    def determine_schema_prefix(xsd)
-      @prefix = xsd.root.namespace.prefix
+    def collect_included_files(xsd)
+      xsd.css('include').map do |include_element|
+        included_schemas.add(include_element.attr('schemaLocation'))
+      end
+    end
+
+    def add_schema_file_to_graph(filename)
+      @xsd = Nokogiri::XML(File.read(filename))
+      xsd.root.default_namespace = xsd.root.namespace.href
+      collect_included_files(xsd)
+      puts "included_schemas: #{included_schemas.inspect}"
+      populate_graph(xsd)
     end
 
     def draw(infile)
-      xsd = Nokogiri::XML(File.read(infile))
+      @root_schema_file = infile
+      @schema_directory = File.dirname(infile)
       schema_name = File.basename(infile, ".xsd")
-      graph = create_graph(schema_name)
-      determine_schema_prefix(xsd)
-      graph = populate_graph(graph, xsd)
+      create_graph(schema_name)
 
+      add_schema_file_to_graph(infile)
+
+      included_schemas.each do |f|
+        add_schema_file_to_graph(File.join(@schema_directory, f))
+      end
       outfile = "#{schema_name}.dot"
       File.open(outfile, "w") do |f|
         f.write(graph.render)
