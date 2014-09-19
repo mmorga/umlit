@@ -30,5 +30,9 @@ module Umlit
     def width(text, options = {})
       metrics(text, options).width
     end
+
+    def height(text, options = {})
+      metrics(text, options).height
+    end
   end
 end

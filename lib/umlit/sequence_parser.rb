@@ -2,7 +2,7 @@ module Umlit
   class SequenceParser
     attr_reader :rowy
 
-    DEFAULT_OPTIONS = { rowy: 75 }
+    DEFAULT_OPTIONS = { rowy: 100 }
 
     def initialize(options = {})
       @rowy = DEFAULT_OPTIONS.merge(options)[:rowy]

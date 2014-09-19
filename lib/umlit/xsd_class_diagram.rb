@@ -4,6 +4,7 @@ require "nokogiri"
 # TODO: handle namespaces - option to put namespaces in a cluster
 # TODO: handle schema imports - how? what? related to namespaces
 # TODO: Add an option to export only the items related to a single element or type
+# TODO: Make sure "element ref" is handled correctly
 module Umlit
   class XsdClassDiagram
     attr_reader :xsd, :root_schema_file, :graph, :included_schema_files
@@ -178,8 +179,23 @@ module Umlit
       @xsd = Nokogiri::XML(File.read(filename))
       xsd.root.default_namespace = xsd.root.namespace.href
       @target_prefix = xsd.root.namespaces.key(xsd.root.attr("targetNamespace")).sub(/.+:/, '')
+      # puts "Types for #{filename}: #{types_for_element("offering").inspect}"
       collect_included_files
       populate_graph
+    end
+
+    def type_def_of(type)
+      xsd.css("simpleType[name=\"#{type}\"],complexType[name=\"#{type}\"]")
+    end
+
+    def spider_types(node)
+      type_names = Set.new(node.css('[type]').map { |t| without_namespace(t.attr("type")) })
+      type_names.reduce(Set.new) { |a, e| a.merge(spider_types(type_def_of(e))) }.merge(type_names)
+    end
+
+    def types_for_element(name)
+      el = xsd.css("schema > element[name=\"#{name}\"]")
+      spider_types(el)
     end
 
     def draw(infile)

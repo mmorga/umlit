@@ -55,6 +55,9 @@ module Umlit
         (l_idx..r_idx).each { |i| @actor_spacing[i + 1] = new_width if @actor_spacing[i + 1] < new_width }
       end
 
+      # Push out the left column to make some room.
+      @actor_spacing[0] += 20
+
       @actor_mid_points.each_with_index do |_mp, i|
         @actor_mid_points[i] = @actor_spacing[i]
         @actor_mid_points[i] = @actor_mid_points[i] + @actor_mid_points[i - 1] if i > 0
@@ -62,30 +65,40 @@ module Umlit
       end
 
       @diagram_width = @actor_mid_points.last + @actor_spacing.last
-      @diagram_height = rowy + 55
+      @diagram_height = rowy + 25
 
       draw_svg
     end
 
     def draw_svg
-      svg_content = Builder::XmlMarkup.new(indent: 2)
-      svg_content.instruct! :xml, version: "1.0", encoding: "UTF-8", standalone: "no"
-      svg_content.declare! :DOCTYPE, :svg, :PUBLIC, "-//W3C//DTD SVG 1.1//EN",
-                           "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"
-      svg_content.svg(width: diagram_width, height: diagram_height,
-                      viewBox: "0 0 #{diagram_width} #{diagram_height}",
-                      xmlns: "http://www.w3.org/2000/svg",
-                      "xmlns:xlink" => "http://www.w3.org/1999/xlink") do |svg|
-        draw_defs(svg)
-        svg.title(sequence.title)
-        svg.rect(x: 0, y: 0, width: diagram_width, height: diagram_height, fill: 'white', stroke: 'none')
-        draw_actors_lifelines(svg)
-        draw_messages(svg)
-        draw_activations(svg)
-        draw_interactions(svg)
-        draw_notes(svg)
+      svg_content = Nokogiri::XML::Builder.new do |xml|
+        xml.doc.create_internal_subset(
+          "svg", "-//W3C//DTD SVG 1.1//EN",
+          "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd")
+        xml.svg(width: diagram_width, height: diagram_height,
+                        viewBox: "0 0 #{diagram_width} #{diagram_height}",
+                        xmlns: "http://www.w3.org/2000/svg",
+                        "xmlns:xlink" => "http://www.w3.org/1999/xlink") do |svg|
+          draw_defs(svg)
+
+          draw_title(svg)
+          draw_actors_lifelines(svg)
+          draw_messages(svg)
+          draw_activations(svg)
+          draw_interactions(svg)
+          draw_notes(svg)
+        end
       end
-      svg_content.target!
+      svg_content.to_xml
+    end
+
+    def draw_title(svg)
+      svg.title(sequence.title)
+      svg.rect(x: 0, y: 0, width: diagram_width - 1, height: diagram_height - 1, fill: 'white', stroke: '#333333')
+      title_metrics = actor_text.metrics(sequence.title)
+      svg.text_(sequence.title, textLength: title_metrics.width,
+                x: 4, y: title_metrics.height, "text-anchor" => "left")
+      svg.path(d: "M 0,#{title_metrics.height + 7} l #{title_metrics.width + 9},0 l 5,-5 l 0,#{-title_metrics.height - 5}")
     end
 
     def draw_defs(svg)
@@ -111,14 +124,20 @@ module Umlit
     end
 
     def draw_actors_lifelines(svg)
+      actor_y = 25
       actor_height = 36
       mid_height = actor_height / 2
       sequence.actors.each_with_index do |node, idx|
-        mid_point = @actor_widths[idx] / 2
+        half_width = @actor_widths[idx] / 2
         x = @actor_mid_points[idx]
-        svg.rect(x: x - mid_point, y: 0, width: @actor_widths[idx], height: actor_height, class: 'participant-box')
-        svg.text(node, textLength: actor_text.width(node), x: x, y: mid_height, class: "participant", "text-anchor" => "middle")
-        svg.line(x1: x, y1: actor_height, x2: x, y2: rowy, class: 'participant-line')
+        svg.rect(x: x - half_width, y: actor_y,
+                 width: @actor_widths[idx], height: actor_height,
+                 class: 'participant-box')
+        svg.text_(node, textLength: actor_text.width(node),
+                  x: x, y: actor_y + mid_height,
+                  class: "participant", "text-anchor" => "middle")
+        svg.line(x1: x, y1: actor_y + actor_height, x2: x, y2: rowy + actor_y,
+                 class: 'participant-line')
       end
     end
 
@@ -127,7 +146,7 @@ module Umlit
         y = row[:top]
         x1 = @actor_mid_points[sequence.actors_index(row[:lnode])]
         x2 = @actor_mid_points[sequence.actors_index(row[:rnode])]
-        svg.text(row[:message], textLength: message_text.width(row[:message]), x: (x1 < x2 ? x1 : x2) + 5, y: y, class: 'message')
+        svg.text_(row[:message], textLength: message_text.width(row[:message]), x: (x1 < x2 ? x1 : x2) + 5, y: y, class: 'message')
         if row[:style] == "dashed"
           style = { "stroke-dasharray" => "4,4" }
           path_class = "reply"
@@ -158,18 +177,18 @@ module Umlit
 
     def draw_interactions(svg)
       sequence.interactions.each do |box|
-        x1 = box[:depth] * 10
-        width = diagram_width - (box[:depth] * 20)
+        x1 = box[:depth] * 10 + 20
+        width = diagram_width - (box[:depth] * 20) - 40
         y1 = box[:start]
         height = box[:end] - box[:start]
         svg.rect(x: x1, y: y1, width: width, height: height, class: 'group-box')
         svg.path(d: "M #{x1}, #{y1 + 15} l 25.0,0 l 5.0,-5.0 l 0.0,-10.0 l -30.0,0 z", class: 'group-box-title')
-        svg.text(box[:type], x: x1 + 5, y: y1 + 12, class: 'group')
-        svg.text(box[:message], x: x1 + 40, y: y1 + 12, class: 'group')
+        svg.text_(box[:type], x: x1 + 5, y: y1 + 12, class: 'group')
+        svg.text_(box[:message], x: x1 + 40, y: y1 + 12, class: 'group')
         box[:elses].each do|else_item|
           ey = else_item[:row]
           svg.line(x1: x1, y1: ey, x2: width, y2: ey, "stroke-dasharray" => '4,4')
-          svg.text("[#{else_item[:message]}]", x: x1 + 40, y: ey + 10, class: 'group')
+          svg.text_("[#{else_item[:message]}]", x: x1 + 40, y: ey + 10, class: 'group')
         end
       end
     end
@@ -197,7 +216,7 @@ module Umlit
         y1 += 3
         note[:messages].each do|message|
           y1 += 10
-          svg.text(message, x: x + 5, y: y1, class: 'note')
+          svg.text_(message, x: x + 5, y: y1, class: 'note')
         end
       end
     end

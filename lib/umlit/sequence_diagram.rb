@@ -1,7 +1,7 @@
 module Umlit
   class SequenceDiagram
     def self.create(infile, outfile = nil)
-      sequence_parser = Umlit::SequenceParser.new(rowy: 75)
+      sequence_parser = Umlit::SequenceParser.new
       sequence = sequence_parser.parse(infile)
 
       renderer = Umlit::SequenceRenderer.new
