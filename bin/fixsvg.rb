@@ -11,11 +11,14 @@
 #    a. Figure out a mapping from file name to id
 #    b. When seeing a reference to a previous file, just add use tag referencing the id
 #    c. When no previous element, insert a symbol element with the computed viewBox and id
-
+#
+# Option 2 is more efficient since each referenced SVG is only included in the
+# parent once so that's what we do.
 require 'nokogiri'
+require 'ostruct'
 
 class SvgImageFixer
-  attr_reader :file_to_id_hash, :infile, :outfile, :asset_path
+  attr_reader :file_to_id_hash, :infile, :outfile, :asset_path, :svg
 
   def self.fix(infile)
     svg_image_fixer = SvgImageFixer.new(infile)
@@ -30,7 +33,7 @@ class SvgImageFixer
   end
 
   def fix
-    svg = Nokogiri::XML(File.read(infile))
+    @svg = Nokogiri::XML(File.read(infile))
 
     svg.css('image').each do |image|
       replace_image(image)
@@ -63,29 +66,68 @@ class SvgImageFixer
     view_box
   end
 
+  # Formats an id based on the image file name ensuring it is unique in the SVG
+  def id_for_image_file(image_file)
+    sym_id = File.basename(image_file, ".svg").gsub(/[\s_]/, "-").downcase
+    sym_id << "-symbol"
+    until svg.css("[id=\"#{sym_id}\"]").empty?
+      d = 1
+      sym_id.match(/(\d+)$/) { |md| d = md[1].to_i }
+      d += 1
+      sym_id.sub(/(\d+)$/, d.to_s)
+    end
+    sym_id
+  end
+
+  def insert_symbol(image_file, symbol_id)
+    defs = svg.at_css("svg>defs")
+    if defs.nil?
+      defs = Nokogiri::XML::Node.new "defs", svg
+      svg.at_css("svg").add_child(defs)
+    end
+    # TODO: create defs if it doesn't exist
+    symbol_svg = Nokogiri::XML(File.read(image_file)).at_css("svg")
+    view_box = view_box_for(symbol_svg)
+    # TODO: what would the appropriate preserveAspectRatio attribute value
+
+    symbol = Nokogiri::XML::Node.new "symbol", svg
+    symbol.set_attribute("id", symbol_id)
+    symbol.set_attribute("viewBox", view_box) if view_box
+    symbol.add_child(symbol_svg)
+    defs.add_child(symbol)
+  end
+
+  def symbol_for_filename(image_file)
+    return file_to_id_hash[image_file] if file_to_id_hash.include?(image_file)
+
+    symbol_id = id_for_image_file(image_file)
+    file_to_id_hash[image_file] = symbol_id
+
+    insert_symbol(image_file, symbol_id)
+    symbol_id
+  end
+
   def replace_image(image)
     image_file = File.join(asset_path, image.attr("xlink:href"))
 
     return if unsupported_case(image_file)
 
-    x = image.attr("x")
-    y = image.attr("y")
-    width = image.attr("width")
-    height = image.attr("height")
+    ia = OpenStruct.new(image.attributes)
 
+    symbol_id = symbol_for_filename(image_file)
     # TODO: cache these for reuse
-    symbol = Nokogiri::XML(File.read(image_file)).at_css("svg")
+    # symbol = Nokogiri::XML(File.read(image_file)).at_css("svg")
+    # view_box = view_box_for(symbol)
 
-    view_box = view_box_for(symbol)
+    use = Nokogiri::XML::Node.new "use", svg
+    use.set_attribute("x", ia.x)
+    use.set_attribute("y", ia.y)
+    use.set_attribute("width", ia.width)
+    use.set_attribute("height", ia.height)
+    use.set_attribute("xlink:href", "##{symbol_id}")
+    # symbol.set_attribute("viewBox", view_box) if view_box
 
-    symbol.set_attribute("x", x)
-    symbol.set_attribute("y", y)
-    symbol.set_attribute("width", width)
-    symbol.set_attribute("height", height)
-    symbol.set_attribute("viewBox", view_box) if view_box
-    # TODO: what would the appropriate preserveAspectRatio attribute value
-
-    image.replace(symbol)
+    image.replace(use)
   end
 end
 

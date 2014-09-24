@@ -21,51 +21,18 @@
 </g>
 <!-- portal -->
 <g id="node1" class="node"><title>portal</title>
-<svg version="1.1" width="59.6915px" height="40px" id="portal-svg" x="125.617" y="-261" viewBox="0 0 69.533295 51.158295">
-  <rect id="rect5176" height="45.831501" width="62.269402" y="5.1999655" x="7.1344442" style="fill:#d9d9d9;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5180" d="m 7.1356715,51.032271 0,-45.8315095 -7.00262,-5.09239 0,45.8315095 z" style="fill:#737373;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5184" d="m 62.400971,0.1078215 7.00263,5.0924 -62.2693595,0 -7.00264,-5.0924 z" style="fill:#bfbfbf;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-</svg>
+<use x="125.617" y="-261" width="59.6915px" height="40px" xlink:href="#portal-symbol"/>
 <text text-anchor="middle" x="155.463" y="-243" font-family="Helvetica,sans-Serif" font-size="10.00">Customer</text>
 <text text-anchor="middle" x="155.463" y="-233" font-family="Helvetica,sans-Serif" font-size="10.00">Portal</text>
 </g>
 <!-- payment -->
 <g id="payment" class="node"><title>payment</title>
-<svg version="1.1" width="86px" height="36px" id="service-symbol-svg" x="112.463" y="-95" viewBox="0 0 112 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-      <symbol id="service-port" class="uml-dingus" preserveAspectRatio="xMaxYMid" viewBox="-1 -1 20 37">
-          <line y2="17" x2="8" y1="17" x1="18" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:square;marker-end:url(#Ball_Marker)"/>
-      </symbol>
-      <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Ball_Marker" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" style="color:#000000;overflow:visible">
-      <g id="g4908">
-        <circle cx="2.9999986" cy="0" r="2.9999974" id="circle4910" style="fill:none;stroke:currentColor;stroke-width:1"/>
-      </g>
-    </marker>
-    </defs>
-    <rect height="35" width="90" y="0" x="18" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-    <use x="90" y="4" xlink:href="#component-badge" width="15" height="11"/>
-    <use x="-1" y="0" xlink:href="#service-port" width="20" height="35"/>
-</svg>
+<use x="112.463" y="-95" width="86px" height="36px" xlink:href="#service-symbol"/>
 <text text-anchor="middle" x="155.463" y="-74" font-family="Helvetica,sans-Serif" font-size="10.00">Payment</text>
 </g>
 <!-- eventQueue -->
 <g id="node10" class="node"><title>eventQueue</title>
-<svg version="1.1" width="87.2854px" height="26px" id="queue-svg" x="234.391" y="-195" viewBox="0 0 89.919098 25.633207">
-  <defs id="defs4285">
-    <linearGradient id="linearGradient5449" gradientUnits="userSpaceOnUse" x1="0" x2="0" y2="8.5403728" gradientTransform="matrix(1.1749016,0,0,1,0.74114562,1.8908179)">
-      <stop offset="0" stop-color="#ccc" id="stop4962"/>
-      <stop offset="1" stop-color="#999" id="stop4964"/>
-    </linearGradient>
-  </defs>
-  <path style="fill:#f9f9f9;fill-opacity:1;stroke:#8b8b8b;stroke-width:0.57499999000000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 0.1875,13.016423 c 0,-6.9324905 0.86248,-12.5549504 1.9256,-12.5549504 0.2613,0 0.51095,0.34358 0.73726,0.9590499 0.69682,1.8884401 1.18794,6.36892 1.18794,11.5959005 0,5.22944 -0.4915,9.70829 -1.18794,11.60002 -0.22631,0.61301 -0.47518,0.95493 -0.73726,0.95493 -1.06312,0 -1.9256,-5.61997 -1.9256,-12.55495 l 0,0 z" id="path5284"/>
-  <path style="fill:url(#linearGradient5449);stroke:#bfbfbf;stroke-width:0.575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none" d="m 4.2658505,12.890818 c 0,-6.9332701 -1.0127652,-12.55571005 -2.260076,-12.55571005 l 85.4666075,0 c 1.24677,0 2.259218,5.62243995 2.259218,12.55571005 0,6.93328 -1.012882,12.55489 -2.259218,12.55489 l -85.4670422,0 c 1.2481685,-8.3e-4 2.2605107,-5.62078 2.2605107,-12.55489 l 0,0 z" id="path5272"/>
-  <path style="fill:none;stroke:#f9f9f9;stroke-width:0.675;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.675,0.675;stroke-dashoffset:0" d="m 87.111989,25.434197 c -1.06274,0 -1.9256,-5.61997 -1.9256,-12.55492 0,-6.93248 0.86286,-12.55408005 1.9256,-12.55408005" id="path5286"/>
-</svg>
+<use x="234.391" y="-195" width="87.2854px" height="26px" xlink:href="#queue-symbol"/>
 <text text-anchor="middle" x="278.034" y="-179" font-family="Helvetica,sans-Serif" font-size="10.00">Event ActiveMQ</text>
 </g>
 <!-- payment&#45;&gt;eventQueue -->
@@ -75,26 +42,7 @@
 </g>
 <!-- user -->
 <g id="user" class="node"><title>user</title>
-<svg version="1.1" width="86px" height="36px" id="service-symbol-svg" x="112.463" y="-203" viewBox="0 0 112 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-      <symbol id="service-port" class="uml-dingus" preserveAspectRatio="xMaxYMid" viewBox="-1 -1 20 37">
-          <line y2="17" x2="8" y1="17" x1="18" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:square;marker-end:url(#Ball_Marker)"/>
-      </symbol>
-      <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Ball_Marker" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" style="color:#000000;overflow:visible">
-      <g id="g4908">
-        <circle cx="2.9999986" cy="0" r="2.9999974" id="circle4910" style="fill:none;stroke:currentColor;stroke-width:1"/>
-      </g>
-    </marker>
-    </defs>
-    <rect height="35" width="90" y="0" x="18" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-    <use x="90" y="4" xlink:href="#component-badge" width="15" height="11"/>
-    <use x="-1" y="0" xlink:href="#service-port" width="20" height="35"/>
-</svg>
+<use x="112.463" y="-203" width="86px" height="36px" xlink:href="#service-symbol"/>
 <text text-anchor="middle" x="155.463" y="-182" font-family="Helvetica,sans-Serif" font-size="10.00">User</text>
 </g>
 <!-- user&#45;&gt;eventQueue -->
@@ -104,26 +52,7 @@
 </g>
 <!-- product -->
 <g id="product" class="node"><title>product</title>
-<svg version="1.1" width="86px" height="36px" id="service-symbol-svg" x="112.463" y="-149" viewBox="0 0 112 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-      <symbol id="service-port" class="uml-dingus" preserveAspectRatio="xMaxYMid" viewBox="-1 -1 20 37">
-          <line y2="17" x2="8" y1="17" x1="18" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:square;marker-end:url(#Ball_Marker)"/>
-      </symbol>
-      <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Ball_Marker" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" style="color:#000000;overflow:visible">
-      <g id="g4908">
-        <circle cx="2.9999986" cy="0" r="2.9999974" id="circle4910" style="fill:none;stroke:currentColor;stroke-width:1"/>
-      </g>
-    </marker>
-    </defs>
-    <rect height="35" width="90" y="0" x="18" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-    <use x="90" y="4" xlink:href="#component-badge" width="15" height="11"/>
-    <use x="-1" y="0" xlink:href="#service-port" width="20" height="35"/>
-</svg>
+<use x="112.463" y="-149" width="86px" height="36px" xlink:href="#service-symbol"/>
 <text text-anchor="middle" x="155.463" y="-128" font-family="Helvetica,sans-Serif" font-size="10.00">Product</text>
 </g>
 <!-- product&#45;&gt;eventQueue -->
@@ -133,41 +62,12 @@
 </g>
 <!-- billing -->
 <g id="billing" class="node"><title>billing</title>
-<svg version="1.1" width="86px" height="36px" id="service-symbol-svg" x="357.605" y="-197" viewBox="0 0 112 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-      <symbol id="service-port" class="uml-dingus" preserveAspectRatio="xMaxYMid" viewBox="-1 -1 20 37">
-          <line y2="17" x2="8" y1="17" x1="18" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:square;marker-end:url(#Ball_Marker)"/>
-      </symbol>
-      <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Ball_Marker" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" style="color:#000000;overflow:visible">
-      <g id="g4908">
-        <circle cx="2.9999986" cy="0" r="2.9999974" id="circle4910" style="fill:none;stroke:currentColor;stroke-width:1"/>
-      </g>
-    </marker>
-    </defs>
-    <rect height="35" width="90" y="0" x="18" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-    <use x="90" y="4" xlink:href="#component-badge" width="15" height="11"/>
-    <use x="-1" y="0" xlink:href="#service-port" width="20" height="35"/>
-</svg>
+<use x="357.605" y="-197" width="86px" height="36px" xlink:href="#service-symbol"/>
 <text text-anchor="middle" x="400.605" y="-176" font-family="Helvetica,sans-Serif" font-size="10.00">Billing API</text>
 </g>
 <!-- sqlServer -->
 <g id="node6" class="node"><title>sqlServer</title>
-<svg version="1.1" width="42px" height="42px" id="queue-svg" x="493.605" y="-252" viewBox="0 0 41.939701 53.75">
-  <defs id="defs4285">
-    <linearGradient xlink:href="#linearGradient5285" id="linearGradient5467" gradientUnits="userSpaceOnUse" x1="480.83942" y1="335.48468" x2="506.80215" y2="335.82629" gradientTransform="translate(-480.4978,-309.28125)">
-      <stop offset="0" stop-color="#ccc" id="stop4913"/>
-      <stop offset=".5" stop-color="white" id="stop4915"/>
-      <stop offset="1" stop-color="#aaa" id="stop4917"/>
-    </linearGradient>
-  </defs>
-  <path style="fill:url(#linearGradient5467);fill-opacity:1;stroke:#4c4c4c;stroke-width:1;stroke-linecap:round;stroke-linejoin:round" d="m 0.50883,43.4675 0,-38.19 c 0,-2.63511 9.16561,-4.77375 20.45895,-4.77375 11.29334,0 20.45895,2.13864 20.45895,4.77375 l 0,38.19 c 0,2.63511 -9.16561,4.77375 -20.45895,4.77375 -11.29334,0 -20.45895,-2.13864 -20.45895,-4.77375 m 0,-38.19 c 0,2.63511 9.16561,4.77375 20.45895,4.77375 11.29334,0 20.45895,-2.13864 20.45895,-4.77375" id="path5120"/>
-  <ellipse d="m 521.92456,314.52087 c 0,2.61555 -9.1598,4.73588 -20.45898,4.73588 -11.29919,0 -20.45899,-2.12033 -20.45899,-4.73588 0,-2.61555 9.1598,-4.73587 20.45899,-4.73587 11.29918,0 20.45898,2.12032 20.45898,4.73587 z" style="fill:#efefef;stroke:#4c4c4c;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1" cx="501.46558" cy="314.52087" rx="20.458982" ry="4.7358727" id="ellipse5128" transform="translate(-480.4978,-309.28125)"/>
-</svg>
+<use x="493.605" y="-252" width="42px" height="42px" xlink:href="#database-symbol"/>
 <text text-anchor="middle" x="514.605" y="-233" font-family="Helvetica,sans-Serif" font-size="10.00">SQL</text>
 <text text-anchor="middle" x="514.605" y="-223" font-family="Helvetica,sans-Serif" font-size="10.00">Server</text>
 </g>
@@ -178,19 +78,7 @@
 </g>
 <!-- loggingJournal -->
 <g id="node8" class="node"><title>loggingJournal</title>
-<svg version="1.1" width="70px" height="36px" id="component-svg" x="479.605" y="-192" viewBox="0 0 91 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000;stroke-width:0.75">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-    </defs>
-    <g>
-      <rect height="35" width="90" y="0" x="0" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-        <use x="72" y="4" xlink:href="#component-badge" width="15" height="11"/>
-   </g>
-</svg>
+<use x="479.605" y="-192" width="70px" height="36px" xlink:href="#component-symbol"/>
 <text text-anchor="middle" x="514.605" y="-176" font-family="Helvetica,sans-Serif" font-size="10.00">Logging</text>
 <text text-anchor="middle" x="514.605" y="-166" font-family="Helvetica,sans-Serif" font-size="10.00">Journal</text>
 </g>
@@ -201,16 +89,7 @@
 </g>
 <!-- riak -->
 <g id="node7" class="node"><title>riak</title>
-<svg version="1.1" width="56px" height="43px" id="cloud-svg" x="585.605" y="-158.5" viewBox="0 0 73.220779 54.821011">
-  <defs id="defs6023">
-    <linearGradient x1="322.1673" x2="390.31808" id="Gradient_6" gradientUnits="userSpaceOnUse" y1="209.80128" y2="261.05518" gradientTransform="translate(-320.03499,-207.81336)">
-      <stop offset="0" stop-color="white" id="stop4933"/>
-      <stop offset="1" stop-color="#5285cc" id="stop4935"/>
-    </linearGradient>
-  </defs>
-  <path id="path5132" d="m 65.98434,24.363914 c 12.8003,3.04652 7.69587,28.69319 -12.72348,24.31712 -1.89446,8.53036 -25.63942,7.14579 -25.48418,0 -14.88881,9.13955 -33.9158197,-9.08453 -21.1535297,-18.22408 -15.31411,-4.43109 0.19325,-28.30522 12.7614897,-24.31712 1.00584,-6.64720004 23.47409,-8.97336 25.44617,0 12.7227,-9.58311 39.25152,5.15146 21.15353,18.22408 z" style="fill:#c2d5ff;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter"/>
-  <path id="path5136" d="m 8.6138303,30.246944 c -11.91749,-2.83641 -7.16509,-26.71436 11.8459597,-22.64009 1.76381,-7.94206004 23.87111,-6.65297005 23.72658,0 13.86194,-8.50924004 31.57669,8.45802 19.6946,16.96727 14.25792,4.1255 -0.17992,26.35314 -11.88136,22.64009 -0.93646,6.18878 -21.85511,8.35451 -23.69118,0 -11.84522,8.92221 -36.5443997,-4.79619 -19.6945997,-16.96727 z" style="fill:url(#Gradient_6);fill-opacity:1;stroke:#808080;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter"/>
-</svg>
+<use x="585.605" y="-158.5" width="56px" height="43px" xlink:href="#cloud-symbol"/>
 <text text-anchor="middle" x="613.605" y="-134" font-family="Helvetica,sans-Serif" font-size="10.00">Riak</text>
 </g>
 <!-- loggingJournal&#45;&gt;riak -->
@@ -220,19 +99,7 @@
 </g>
 <!-- watchdog -->
 <g id="node9" class="node"><title>watchdog</title>
-<svg version="1.1" width="70px" height="36px" id="component-svg" x="243.034" y="-146" viewBox="0 0 91 36">
-   <defs>
-     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000;stroke-width:0.75">
-        <rect height="10" width="10" x="3" y="0"/>
-        <rect height="2" width="6" x="0" y="2"/>
-        <rect height="2" width="6" x="0" y="6"/>
-      </symbol>
-    </defs>
-    <g>
-      <rect height="35" width="90" y="0" x="0" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
-        <use x="72" y="4" xlink:href="#component-badge" width="15" height="11"/>
-   </g>
-</svg>
+<use x="243.034" y="-146" width="70px" height="36px" xlink:href="#component-symbol"/>
 <text text-anchor="middle" x="278.034" y="-125" font-family="Helvetica,sans-Serif" font-size="10.00">Watchdog</text>
 </g>
 <!-- watchdog&#45;&gt;payment -->
@@ -262,11 +129,7 @@
 </g>
 <!-- supportPortal -->
 <g id="node11" class="node"><title>supportPortal</title>
-<svg version="1.1" width="54px" height="40px" id="portal-svg" x="373.605" y="-114" viewBox="0 0 69.533295 51.158295">
-  <rect id="rect5176" height="45.831501" width="62.269402" y="5.1999655" x="7.1344442" style="fill:#d9d9d9;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5180" d="m 7.1356715,51.032271 0,-45.8315095 -7.00262,-5.09239 0,45.8315095 z" style="fill:#737373;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5184" d="m 62.400971,0.1078215 7.00263,5.0924 -62.2693595,0 -7.00264,-5.0924 z" style="fill:#bfbfbf;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-</svg>
+<use x="373.605" y="-114" width="54px" height="40px" xlink:href="#portal-symbol"/>
 <text text-anchor="middle" x="400.605" y="-96" font-family="Helvetica,sans-Serif" font-size="10.00">Support</text>
 <text text-anchor="middle" x="400.605" y="-86" font-family="Helvetica,sans-Serif" font-size="10.00">Portal</text>
 </g>
@@ -282,11 +145,7 @@
 </g>
 <!-- riakAdmin -->
 <g id="node12" class="node"><title>riakAdmin</title>
-<svg version="1.1" width="54px" height="48px" id="portal-svg" x="487.605" y="-118" viewBox="0 0 69.533295 51.158295">
-  <rect id="rect5176" height="45.831501" width="62.269402" y="5.1999655" x="7.1344442" style="fill:#d9d9d9;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5180" d="m 7.1356715,51.032271 0,-45.8315095 -7.00262,-5.09239 0,45.8315095 z" style="fill:#737373;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-  <path id="path5184" d="m 62.400971,0.1078215 7.00263,5.0924 -62.2693595,0 -7.00264,-5.0924 z" style="fill:#bfbfbf;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
-</svg>
+<use x="487.605" y="-118" width="54px" height="48px" xlink:href="#portal-symbol"/>
 <text text-anchor="middle" x="514.605" y="-106" font-family="Helvetica,sans-Serif" font-size="10.00">Riak</text>
 <text text-anchor="middle" x="514.605" y="-96" font-family="Helvetica,sans-Serif" font-size="10.00">Admin</text>
 <text text-anchor="middle" x="514.605" y="-86" font-family="Helvetica,sans-Serif" font-size="10.00">Web</text>
@@ -299,21 +158,7 @@
 </g>
 <!-- customer -->
 <g id="node13" class="node"><title>customer</title>
-<svg version="1.1" width="59.6915px" height="36px" id="user-svg" x="16.3857" y="-230" viewBox="0 0 75 43.669998">
-  <defs id="defs4285">
-    <linearGradient x1="0" x2="1" id="Gradient_8" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#c4bebc" id="stop4968"/>
-      <stop offset="1" stop-color="#d7d0cd" id="stop4970"/>
-    </linearGradient>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5718" gradientTransform="matrix(0,-34.0216,34.0216,0,14.0145,58.346588)"/>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5720" gradientTransform="matrix(0,-8.86476,8.86476,0,13.79838,24.254748)"/>
-  </defs>
-  <g id="user-symbol" transform="translate(0,-14.677183)">
-    <path style="fill:#a19d9c;stroke:none" d="m 21.599684,25.40053 0.525081,-0.32265 -0.281108,-0.75317 -1.027206,-1.028961 -2.850915,0 -0.773494,0 -0.388072,0 -0.494153,0 0.571071,-1.481579 0.733711,-4.164538 0.02033,-0.11049 -1.603575,-1.600019 c -0.780581,-0.782343 -1.856411,-1.264135 -3.046273,-1.264135 -1.191632,0 -2.268347,0.481792 -3.04716,1.264135 -0.780558,0.778807 -1.260584,1.856374 -1.260584,3.04535 0,1.188976 0.480026,2.266587 1.260584,3.045394 l 1.028987,1.02896 0,0 c -2e-6,0.0035 -2e-6,0.0035 0,0.0035 l 0.23691,0.233384 -2.425698,0 -0.789413,0 -2.8332045,0 L 0,37.120599 l 1.0289719,1.028982 0.9114129,0 0.6090629,-1.028982 1.0723131,0 1.8351868,-4.916795 2.5308804,-4.282077 0,1.280905 0,12.564274 0.00353,0 0,15.549531 1.0289719,1.030751 0.6665569,0 0.1644059,-1.030751 1.6778383,0 0,-10.417043 0.84422,-5.250054 2.070333,0 0,1.02896 0,14.638137 1.02898,1.030751 0.735485,0 0.293495,-1.030751 1.479809,0 0,-16.135612 -0.01768,0 0,-13.546418 0.68863,-0.423445 0.338576,0.911395 3.354779,8.997363 1.027232,1.02897 0.804423,0 0.414612,-1.02897 1.376377,0 -4.368716,-11.71919 0,0 z" id="path5554"/>
-    <path style="fill:url(#linearGradient5718);stroke:none" d="m 22.123867,25.078158 -0.28111,-0.75317 -2.850889,0 -0.771754,0 -8.412994,0 -0.7911805,0 -2.8332283,0 L 1.029,38.149855 l 0.9114003,0 2.7130087,0 3.3353256,-8.946952 1.0272049,-2.759866 0,16.351343 0.0053,0 0,15.552208 0.6665457,0 2.8694478,0 0,-15.668005 1.887338,0 1.028969,0 0,15.668005 0.735491,0 2.800499,0 0,-16.134758 -0.01766,0 0,-14.088297 0,-1.729998 4.381983,11.75632 0.805309,0 2.82084,0 z" id="path5556"/>
-    <circle d="m 18.230767,19.822369 c 0,2.447939 -1.984447,4.432386 -4.432387,4.432386 -2.44794,0 -4.432387,-1.984447 -4.432387,-4.432386 0,-2.44794 1.984447,-4.432387 4.432387,-4.432387 2.44794,0 4.432387,1.984447 4.432387,4.432387 z" style="fill:url(#linearGradient5720);stroke:none" cx="13.79838" cy="19.822369" r="4.4323869" id="circle5558"/>
-  </g>
-</svg>
+<use x="16.3857" y="-230" width="59.6915px" height="36px" xlink:href="#user-symbol"/>
 <text text-anchor="middle" x="46.2314" y="-209" font-family="Helvetica,sans-Serif" font-size="10.00">Customer</text>
 </g>
 <!-- customer&#45;&gt;portal -->
@@ -323,21 +168,7 @@
 </g>
 <!-- apiClient -->
 <g id="node14" class="node"><title>apiClient</title>
-<svg version="1.1" width="60.9294px" height="36px" id="user-svg" x="15.7668" y="-176" viewBox="0 0 75 43.669998">
-  <defs id="defs4285">
-    <linearGradient x1="0" x2="1" id="Gradient_8" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#c4bebc" id="stop4968"/>
-      <stop offset="1" stop-color="#d7d0cd" id="stop4970"/>
-    </linearGradient>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5718" gradientTransform="matrix(0,-34.0216,34.0216,0,14.0145,58.346588)"/>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5720" gradientTransform="matrix(0,-8.86476,8.86476,0,13.79838,24.254748)"/>
-  </defs>
-  <g id="user-symbol" transform="translate(0,-14.677183)">
-    <path style="fill:#a19d9c;stroke:none" d="m 21.599684,25.40053 0.525081,-0.32265 -0.281108,-0.75317 -1.027206,-1.028961 -2.850915,0 -0.773494,0 -0.388072,0 -0.494153,0 0.571071,-1.481579 0.733711,-4.164538 0.02033,-0.11049 -1.603575,-1.600019 c -0.780581,-0.782343 -1.856411,-1.264135 -3.046273,-1.264135 -1.191632,0 -2.268347,0.481792 -3.04716,1.264135 -0.780558,0.778807 -1.260584,1.856374 -1.260584,3.04535 0,1.188976 0.480026,2.266587 1.260584,3.045394 l 1.028987,1.02896 0,0 c -2e-6,0.0035 -2e-6,0.0035 0,0.0035 l 0.23691,0.233384 -2.425698,0 -0.789413,0 -2.8332045,0 L 0,37.120599 l 1.0289719,1.028982 0.9114129,0 0.6090629,-1.028982 1.0723131,0 1.8351868,-4.916795 2.5308804,-4.282077 0,1.280905 0,12.564274 0.00353,0 0,15.549531 1.0289719,1.030751 0.6665569,0 0.1644059,-1.030751 1.6778383,0 0,-10.417043 0.84422,-5.250054 2.070333,0 0,1.02896 0,14.638137 1.02898,1.030751 0.735485,0 0.293495,-1.030751 1.479809,0 0,-16.135612 -0.01768,0 0,-13.546418 0.68863,-0.423445 0.338576,0.911395 3.354779,8.997363 1.027232,1.02897 0.804423,0 0.414612,-1.02897 1.376377,0 -4.368716,-11.71919 0,0 z" id="path5554"/>
-    <path style="fill:url(#linearGradient5718);stroke:none" d="m 22.123867,25.078158 -0.28111,-0.75317 -2.850889,0 -0.771754,0 -8.412994,0 -0.7911805,0 -2.8332283,0 L 1.029,38.149855 l 0.9114003,0 2.7130087,0 3.3353256,-8.946952 1.0272049,-2.759866 0,16.351343 0.0053,0 0,15.552208 0.6665457,0 2.8694478,0 0,-15.668005 1.887338,0 1.028969,0 0,15.668005 0.735491,0 2.800499,0 0,-16.134758 -0.01766,0 0,-14.088297 0,-1.729998 4.381983,11.75632 0.805309,0 2.82084,0 z" id="path5556"/>
-    <circle d="m 18.230767,19.822369 c 0,2.447939 -1.984447,4.432386 -4.432387,4.432386 -2.44794,0 -4.432387,-1.984447 -4.432387,-4.432386 0,-2.44794 1.984447,-4.432387 4.432387,-4.432387 2.44794,0 4.432387,1.984447 4.432387,4.432387 z" style="fill:url(#linearGradient5720);stroke:none" cx="13.79838" cy="19.822369" r="4.4323869" id="circle5558"/>
-  </g>
-</svg>
+<use x="15.7668" y="-176" width="60.9294px" height="36px" xlink:href="#user-symbol"/>
 <text text-anchor="middle" x="46.2314" y="-155" font-family="Helvetica,sans-Serif" font-size="10.00">API Client</text>
 </g>
 <!-- apiClient&#45;&gt;payment -->
@@ -357,21 +188,7 @@
 </g>
 <!-- devOps -->
 <g id="node15" class="node"><title>devOps</title>
-<svg version="1.1" width="58px" height="36px" id="user-svg" x="249.034" y="-54" viewBox="0 0 75 43.669998">
-  <defs id="defs4285">
-    <linearGradient x1="0" x2="1" id="Gradient_8" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#c4bebc" id="stop4968"/>
-      <stop offset="1" stop-color="#d7d0cd" id="stop4970"/>
-    </linearGradient>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5718" gradientTransform="matrix(0,-34.0216,34.0216,0,14.0145,58.346588)"/>
-    <linearGradient xlink:href="#Gradient_8" id="linearGradient5720" gradientTransform="matrix(0,-8.86476,8.86476,0,13.79838,24.254748)"/>
-  </defs>
-  <g id="user-symbol" transform="translate(0,-14.677183)">
-    <path style="fill:#a19d9c;stroke:none" d="m 21.599684,25.40053 0.525081,-0.32265 -0.281108,-0.75317 -1.027206,-1.028961 -2.850915,0 -0.773494,0 -0.388072,0 -0.494153,0 0.571071,-1.481579 0.733711,-4.164538 0.02033,-0.11049 -1.603575,-1.600019 c -0.780581,-0.782343 -1.856411,-1.264135 -3.046273,-1.264135 -1.191632,0 -2.268347,0.481792 -3.04716,1.264135 -0.780558,0.778807 -1.260584,1.856374 -1.260584,3.04535 0,1.188976 0.480026,2.266587 1.260584,3.045394 l 1.028987,1.02896 0,0 c -2e-6,0.0035 -2e-6,0.0035 0,0.0035 l 0.23691,0.233384 -2.425698,0 -0.789413,0 -2.8332045,0 L 0,37.120599 l 1.0289719,1.028982 0.9114129,0 0.6090629,-1.028982 1.0723131,0 1.8351868,-4.916795 2.5308804,-4.282077 0,1.280905 0,12.564274 0.00353,0 0,15.549531 1.0289719,1.030751 0.6665569,0 0.1644059,-1.030751 1.6778383,0 0,-10.417043 0.84422,-5.250054 2.070333,0 0,1.02896 0,14.638137 1.02898,1.030751 0.735485,0 0.293495,-1.030751 1.479809,0 0,-16.135612 -0.01768,0 0,-13.546418 0.68863,-0.423445 0.338576,0.911395 3.354779,8.997363 1.027232,1.02897 0.804423,0 0.414612,-1.02897 1.376377,0 -4.368716,-11.71919 0,0 z" id="path5554"/>
-    <path style="fill:url(#linearGradient5718);stroke:none" d="m 22.123867,25.078158 -0.28111,-0.75317 -2.850889,0 -0.771754,0 -8.412994,0 -0.7911805,0 -2.8332283,0 L 1.029,38.149855 l 0.9114003,0 2.7130087,0 3.3353256,-8.946952 1.0272049,-2.759866 0,16.351343 0.0053,0 0,15.552208 0.6665457,0 2.8694478,0 0,-15.668005 1.887338,0 1.028969,0 0,15.668005 0.735491,0 2.800499,0 0,-16.134758 -0.01766,0 0,-14.088297 0,-1.729998 4.381983,11.75632 0.805309,0 2.82084,0 z" id="path5556"/>
-    <circle d="m 18.230767,19.822369 c 0,2.447939 -1.984447,4.432386 -4.432387,4.432386 -2.44794,0 -4.432387,-1.984447 -4.432387,-4.432386 0,-2.44794 1.984447,-4.432387 4.432387,-4.432387 2.44794,0 4.432387,1.984447 4.432387,4.432387 z" style="fill:url(#linearGradient5720);stroke:none" cx="13.79838" cy="19.822369" r="4.4323869" id="circle5558"/>
-  </g>
-</svg>
+<use x="249.034" y="-54" width="58px" height="36px" xlink:href="#user-symbol"/>
 <text text-anchor="middle" x="278.034" y="-33" font-family="Helvetica,sans-Serif" font-size="10.00">DevOps</text>
 </g>
 <!-- devOps&#45;&gt;supportPortal -->
@@ -385,4 +202,82 @@
 <polygon fill="#003388" stroke="#003388" points="487.444,-81.3043 476.481,-81.5418 482.841,-79.3517 478.238,-77.3991 478.238,-77.3991 478.238,-77.3991 482.841,-79.3517 479.995,-73.2564 487.444,-81.3043 487.444,-81.3043"/>
 </g>
 </g>
-</svg>
+<defs><symbol id="portal-symbol" viewBox="0 0 69.533295 51.158295"><svg version="1.1" width="69.533295" height="51.158295" id="portal-svg">
+  <rect id="rect5176" height="45.831501" width="62.269402" y="5.1999655" x="7.1344442" style="fill:#d9d9d9;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
+  <path id="path5180" d="m 7.1356715,51.032271 0,-45.8315095 -7.00262,-5.09239 0,45.8315095 z" style="fill:#737373;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
+  <path id="path5184" d="m 62.400971,0.1078215 7.00263,5.0924 -62.2693595,0 -7.00264,-5.0924 z" style="fill:#bfbfbf;stroke:#a6a6a6;stroke-width:0.23999999;stroke-linecap:round;stroke-linejoin:round"/>
+</svg></symbol><symbol id="service-symbol" viewBox="0 0 112 36"><svg version="1.1" width="112" height="36" id="service-symbol-svg">
+   <defs>
+     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000">
+        <rect height="10" width="10" x="3" y="0"/>
+        <rect height="2" width="6" x="0" y="2"/>
+        <rect height="2" width="6" x="0" y="6"/>
+      </symbol>
+      <symbol id="service-port" class="uml-dingus" preserveAspectRatio="xMaxYMid" viewBox="-1 -1 20 37">
+          <line y2="17" x2="8" y1="17" x1="18" style="fill:none;stroke:#000000;stroke-linecap:square;stroke-linejoin:square;marker-end:url(#Ball_Marker)"/>
+      </symbol>
+      <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="Ball_Marker" viewBox="-1 -4 8 8" markerWidth="8" markerHeight="8" style="color:#000000;overflow:visible">
+      <g id="g4908">
+        <circle cx="2.9999986" cy="0" r="2.9999974" id="circle4910" style="fill:none;stroke:currentColor;stroke-width:1"/>
+      </g>
+    </marker>
+    </defs>
+    <rect height="35" width="90" y="0" x="18" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
+    <use x="90" y="4" xlink:href="#component-badge" width="15" height="11"/>
+    <use x="-1" y="0" xlink:href="#service-port" width="20" height="35"/>
+</svg></symbol><symbol id="queue-symbol" viewBox="0 0 89.919098 25.633207"><svg version="1.1" width="89.919098" height="25.633207" id="queue-svg">
+  <defs id="defs4285">
+    <linearGradient id="linearGradient5449" gradientUnits="userSpaceOnUse" x1="0" x2="0" y2="8.5403728" gradientTransform="matrix(1.1749016,0,0,1,0.74114562,1.8908179)">
+      <stop offset="0" stop-color="#ccc" id="stop4962"/>
+      <stop offset="1" stop-color="#999" id="stop4964"/>
+    </linearGradient>
+  </defs>
+  <path style="fill:#f9f9f9;fill-opacity:1;stroke:#8b8b8b;stroke-width:0.57499999000000002;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" d="m 0.1875,13.016423 c 0,-6.9324905 0.86248,-12.5549504 1.9256,-12.5549504 0.2613,0 0.51095,0.34358 0.73726,0.9590499 0.69682,1.8884401 1.18794,6.36892 1.18794,11.5959005 0,5.22944 -0.4915,9.70829 -1.18794,11.60002 -0.22631,0.61301 -0.47518,0.95493 -0.73726,0.95493 -1.06312,0 -1.9256,-5.61997 -1.9256,-12.55495 l 0,0 z" id="path5284"/>
+  <path style="fill:url(#linearGradient5449);stroke:#bfbfbf;stroke-width:0.575;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none" d="m 4.2658505,12.890818 c 0,-6.9332701 -1.0127652,-12.55571005 -2.260076,-12.55571005 l 85.4666075,0 c 1.24677,0 2.259218,5.62243995 2.259218,12.55571005 0,6.93328 -1.012882,12.55489 -2.259218,12.55489 l -85.4670422,0 c 1.2481685,-8.3e-4 2.2605107,-5.62078 2.2605107,-12.55489 l 0,0 z" id="path5272"/>
+  <path style="fill:none;stroke:#f9f9f9;stroke-width:0.675;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:0.675,0.675;stroke-dashoffset:0" d="m 87.111989,25.434197 c -1.06274,0 -1.9256,-5.61997 -1.9256,-12.55492 0,-6.93248 0.86286,-12.55408005 1.9256,-12.55408005" id="path5286"/>
+</svg></symbol><symbol id="database-symbol" viewBox="0 0 41.939701 53.75"><svg version="1.1" width="41.939701" height="53.75" id="queue-svg">
+  <defs id="defs4285">
+    <linearGradient xlink:href="#linearGradient5285" id="linearGradient5467" gradientUnits="userSpaceOnUse" x1="480.83942" y1="335.48468" x2="506.80215" y2="335.82629" gradientTransform="translate(-480.4978,-309.28125)">
+      <stop offset="0" stop-color="#ccc" id="stop4913"/>
+      <stop offset=".5" stop-color="white" id="stop4915"/>
+      <stop offset="1" stop-color="#aaa" id="stop4917"/>
+    </linearGradient>
+  </defs>
+  <path style="fill:url(#linearGradient5467);fill-opacity:1;stroke:#4c4c4c;stroke-width:1;stroke-linecap:round;stroke-linejoin:round" d="m 0.50883,43.4675 0,-38.19 c 0,-2.63511 9.16561,-4.77375 20.45895,-4.77375 11.29334,0 20.45895,2.13864 20.45895,4.77375 l 0,38.19 c 0,2.63511 -9.16561,4.77375 -20.45895,4.77375 -11.29334,0 -20.45895,-2.13864 -20.45895,-4.77375 m 0,-38.19 c 0,2.63511 9.16561,4.77375 20.45895,4.77375 11.29334,0 20.45895,-2.13864 20.45895,-4.77375" id="path5120"/>
+  <ellipse d="m 521.92456,314.52087 c 0,2.61555 -9.1598,4.73588 -20.45898,4.73588 -11.29919,0 -20.45899,-2.12033 -20.45899,-4.73588 0,-2.61555 9.1598,-4.73587 20.45899,-4.73587 11.29918,0 20.45898,2.12032 20.45898,4.73587 z" style="fill:#efefef;stroke:#4c4c4c;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1" cx="501.46558" cy="314.52087" rx="20.458982" ry="4.7358727" id="ellipse5128" transform="translate(-480.4978,-309.28125)"/>
+</svg></symbol><symbol id="component-symbol" viewBox="0 0 91 36"><svg version="1.1" width="91" height="36" id="component-svg">
+   <defs>
+     <symbol id="component-badge" class="badge" preserveAspectRatio="xMaxYMin" viewBox="-1 -1 14 12" style="fill:#ffffff;stroke:#000000;stroke-width:0.75">
+        <rect height="10" width="10" x="3" y="0"/>
+        <rect height="2" width="6" x="0" y="2"/>
+        <rect height="2" width="6" x="0" y="6"/>
+      </symbol>
+    </defs>
+    <g>
+      <rect height="35" width="90" y="0" x="0" class="umlbox" style="fill:#ffffff;stroke:#000000;stroke-width:1;"/>
+        <use x="72" y="4" xlink:href="#component-badge" width="15" height="11"/>
+   </g>
+</svg></symbol><symbol id="cloud-symbol" viewBox="0 0 73.220779 54.821011"><svg version="1.1" width="73.220779" height="54.821011" id="cloud-svg">
+  <defs id="defs6023">
+    <linearGradient x1="322.1673" x2="390.31808" id="Gradient_6" gradientUnits="userSpaceOnUse" y1="209.80128" y2="261.05518" gradientTransform="translate(-320.03499,-207.81336)">
+      <stop offset="0" stop-color="white" id="stop4933"/>
+      <stop offset="1" stop-color="#5285cc" id="stop4935"/>
+    </linearGradient>
+  </defs>
+  <path id="path5132" d="m 65.98434,24.363914 c 12.8003,3.04652 7.69587,28.69319 -12.72348,24.31712 -1.89446,8.53036 -25.63942,7.14579 -25.48418,0 -14.88881,9.13955 -33.9158197,-9.08453 -21.1535297,-18.22408 -15.31411,-4.43109 0.19325,-28.30522 12.7614897,-24.31712 1.00584,-6.64720004 23.47409,-8.97336 25.44617,0 12.7227,-9.58311 39.25152,5.15146 21.15353,18.22408 z" style="fill:#c2d5ff;stroke:#000000;stroke-width:0.5;stroke-linecap:butt;stroke-linejoin:miter"/>
+  <path id="path5136" d="m 8.6138303,30.246944 c -11.91749,-2.83641 -7.16509,-26.71436 11.8459597,-22.64009 1.76381,-7.94206004 23.87111,-6.65297005 23.72658,0 13.86194,-8.50924004 31.57669,8.45802 19.6946,16.96727 14.25792,4.1255 -0.17992,26.35314 -11.88136,22.64009 -0.93646,6.18878 -21.85511,8.35451 -23.69118,0 -11.84522,8.92221 -36.5443997,-4.79619 -19.6945997,-16.96727 z" style="fill:url(#Gradient_6);fill-opacity:1;stroke:#808080;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter"/>
+</svg></symbol><symbol id="user-symbol" viewBox="0 0 75 43.669998"><svg version="1.1" width="75" height="43.669998" id="user-svg">
+  <defs id="defs4285">
+    <linearGradient x1="0" x2="1" id="Gradient_8" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#c4bebc" id="stop4968"/>
+      <stop offset="1" stop-color="#d7d0cd" id="stop4970"/>
+    </linearGradient>
+    <linearGradient xlink:href="#Gradient_8" id="linearGradient5718" gradientTransform="matrix(0,-34.0216,34.0216,0,14.0145,58.346588)"/>
+    <linearGradient xlink:href="#Gradient_8" id="linearGradient5720" gradientTransform="matrix(0,-8.86476,8.86476,0,13.79838,24.254748)"/>
+  </defs>
+  <g id="user-symbol" transform="translate(0,-14.677183)">
+    <path style="fill:#a19d9c;stroke:none" d="m 21.599684,25.40053 0.525081,-0.32265 -0.281108,-0.75317 -1.027206,-1.028961 -2.850915,0 -0.773494,0 -0.388072,0 -0.494153,0 0.571071,-1.481579 0.733711,-4.164538 0.02033,-0.11049 -1.603575,-1.600019 c -0.780581,-0.782343 -1.856411,-1.264135 -3.046273,-1.264135 -1.191632,0 -2.268347,0.481792 -3.04716,1.264135 -0.780558,0.778807 -1.260584,1.856374 -1.260584,3.04535 0,1.188976 0.480026,2.266587 1.260584,3.045394 l 1.028987,1.02896 0,0 c -2e-6,0.0035 -2e-6,0.0035 0,0.0035 l 0.23691,0.233384 -2.425698,0 -0.789413,0 -2.8332045,0 L 0,37.120599 l 1.0289719,1.028982 0.9114129,0 0.6090629,-1.028982 1.0723131,0 1.8351868,-4.916795 2.5308804,-4.282077 0,1.280905 0,12.564274 0.00353,0 0,15.549531 1.0289719,1.030751 0.6665569,0 0.1644059,-1.030751 1.6778383,0 0,-10.417043 0.84422,-5.250054 2.070333,0 0,1.02896 0,14.638137 1.02898,1.030751 0.735485,0 0.293495,-1.030751 1.479809,0 0,-16.135612 -0.01768,0 0,-13.546418 0.68863,-0.423445 0.338576,0.911395 3.354779,8.997363 1.027232,1.02897 0.804423,0 0.414612,-1.02897 1.376377,0 -4.368716,-11.71919 0,0 z" id="path5554"/>
+    <path style="fill:url(#linearGradient5718);stroke:none" d="m 22.123867,25.078158 -0.28111,-0.75317 -2.850889,0 -0.771754,0 -8.412994,0 -0.7911805,0 -2.8332283,0 L 1.029,38.149855 l 0.9114003,0 2.7130087,0 3.3353256,-8.946952 1.0272049,-2.759866 0,16.351343 0.0053,0 0,15.552208 0.6665457,0 2.8694478,0 0,-15.668005 1.887338,0 1.028969,0 0,15.668005 0.735491,0 2.800499,0 0,-16.134758 -0.01766,0 0,-14.088297 0,-1.729998 4.381983,11.75632 0.805309,0 2.82084,0 z" id="path5556"/>
+    <circle d="m 18.230767,19.822369 c 0,2.447939 -1.984447,4.432386 -4.432387,4.432386 -2.44794,0 -4.432387,-1.984447 -4.432387,-4.432386 0,-2.44794 1.984447,-4.432387 4.432387,-4.432387 2.44794,0 4.432387,1.984447 4.432387,4.432387 z" style="fill:url(#linearGradient5720);stroke:none" cx="13.79838" cy="19.822369" r="4.4323869" id="circle5558"/>
+  </g>
+</svg></symbol></defs></svg>
