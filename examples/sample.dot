@@ -1,0 +1,84 @@
+digraph SampleComponentDiagram {
+  label="Sample Component Diagram";
+  fontname="Helvetica";
+  fontsize="10";
+  node [fontname="Helvetica",fontsize="10",shape=none];
+  edge [arrowhead="vee",style="dashed",color="#003388",fontname="Helvetica",fontsize="8"];
+
+  rankdir=LR;
+
+  subgraph cluster0 {
+    style=filled;
+    color="#2b6f6f";
+    fillcolor="#fc93cb";
+    label = "Web Application";
+
+    portal [label="Customer\nPortal", image="portal.svg"];
+
+    // Services
+    payment [id="payment",label="Payment",image="service.svg"];
+    user [id="user",label="User",image="service.svg"];
+    product [id="product",label="Product",image="service.svg"];
+  }
+
+  subgraph cluster1 {
+    style=filled;
+    color="#2b6f6f";
+    fillcolor="#96f4eb";
+    label = "Backend";
+
+    billing [id="billing",label="Billing API",image="service.svg"];
+
+    // Databases
+    sqlServer [label="SQL\nServer",image="database.svg"];
+    riak [label="Riak",image="cloud.svg"];
+
+    // Components
+    loggingJournal [label="Logging\nJournal",image="component.svg"];
+    watchdog [label="Watchdog",image="component.svg"];
+    eventQueue [label="Event ActiveMQ",image="queue.svg"];
+
+    // Portals
+    supportPortal [label="Support\nPortal", image="portal.svg"];
+    riakAdmin [label="Riak\nAdmin\nWeb\nPortal",image="portal.svg"];
+  }
+
+  subgraph cluster3 {
+    label = ""
+    color="none";
+    customer [label="Customer",image="user.svg"];
+    apiClient [label="API Client",image="user.svg"];
+  }
+
+  devOps [label="DevOps", image="user.svg"];
+
+  // Connections
+  customer->portal;
+
+  apiClient->payment;
+  apiClient->user;
+  apiClient->product;
+
+  watchdog->riak;
+  watchdog->billing;
+  watchdog->supportPortal;
+  watchdog->payment;
+  watchdog->user;
+  watchdog->product;
+
+  devOps->riakAdmin;
+  devOps->supportPortal;
+
+  riakAdmin->riak;
+
+  payment->eventQueue;
+  product->eventQueue;
+  user->eventQueue;
+
+  eventQueue->billing;
+
+  billing->sqlServer;
+  billing->loggingJournal;
+
+  loggingJournal->riak;
+}
