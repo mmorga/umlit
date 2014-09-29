@@ -184,11 +184,15 @@ module Umlit
         svg.rect(x: x1, y: y1, width: width, height: height, class: 'group-box')
         svg.path(d: "M #{x1}, #{y1 + 15} l 25.0,0 l 5.0,-5.0 l 0.0,-10.0 l -30.0,0 z", class: 'group-box-title')
         svg.text_(box[:type], x: x1 + 5, y: y1 + 12, class: 'group')
-        svg.text_(box[:message], x: x1 + 40, y: y1 + 12, class: 'group')
+        metrics = actor_text.metrics("[#{box[:message]}]")
+        svg.rect(x: x1 + 40, y: y1 + 1, width: metrics.width, height: metrics.height + 6, class: 'text-background')
+        svg.text_("[#{box[:message]}]", x: x1 + 40, y: y1 + 12, textLength: metrics.width, class: 'group')
         box[:elses].each do|else_item|
           ey = else_item[:row]
           svg.line(x1: x1, y1: ey, x2: width, y2: ey, "stroke-dasharray" => '4,4')
-          svg.text_("[#{else_item[:message]}]", x: x1 + 40, y: ey + 10, class: 'group')
+          metrics = actor_text.metrics("[#{else_item[:message]}]")
+          svg.rect(x: x1 + 40, y: ey + 2, width: metrics.width, height: metrics.height + 6, class: 'text-background')
+          svg.text_("[#{else_item[:message]}]", x: x1 + 40, y: ey + 15, textLength: metrics.width, class: 'group')
         end
       end
     end

@@ -8,6 +8,10 @@ module Umlit
       @rowy = DEFAULT_OPTIONS.merge(options)[:rowy]
     end
 
+    def filter_node(node)
+      node.sub(/^"/, "").sub(/"$/, "")
+    end
+
     def parse(infile)
       sequence = Umlit::Sequence.new
       depth = 0
@@ -16,10 +20,10 @@ module Umlit
         if  /title (.+)/ =~ line
           sequence.title = Regexp.last_match[1]
           # @rowy += 15
-        elsif /([a-zA-Z0-9]+)(\-?-\>)(.+)\:(.+)/ =~ line
-          lnode = Regexp.last_match[1].strip
+        elsif /"?([a-zA-Z0-9 ]+)"?(\-?-\>)"?(.+)"?\:(.+)/ =~ line
+          lnode = filter_node(Regexp.last_match[1].strip)
           style = Regexp.last_match[2]
-          rnode = Regexp.last_match[3].strip
+          rnode = filter_node(Regexp.last_match[3].strip)
           msg = Regexp.last_match[4].strip
           sequence.rows << { lnode: lnode, rnode: rnode, message: msg, top: @rowy, style: style == "-->" ? "dashed" : "solid" }
           sequence.actors << lnode unless sequence.actors.include?(lnode)
@@ -33,10 +37,10 @@ module Umlit
             elses: [],
             depth: depth }
           depth += 1
-          @rowy += 20
-        elsif /else (.+)/ =~ line
+          @rowy += 30
+        elsif /else *(.+)?/ =~ line
           sequence.interactions.last[:elses] << { row: @rowy, message: Regexp.last_match[1].strip }
-          @rowy += 20
+          @rowy += 35
         elsif line.strip == 'end'
           last = sequence.interactions.size - 1
           last -= 1 while sequence.interactions[last].key?(:end)

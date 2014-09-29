@@ -40,3 +40,7 @@ path,line {
 .note {
   font-color: #400;
 }
+.text-background {
+  stroke: none;
+  fill: white;
+}
