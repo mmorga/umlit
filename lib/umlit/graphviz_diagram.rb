@@ -22,20 +22,15 @@ module Umlit
       @asset_names.each do |asset|
         dot_file.gsub!(/image\s*=\s*["']#{asset}["']/, "image=\"#{File.join(asset_path, asset)}\"")
       end
-      puts dot_file
       temp_dot = Tempfile.new("processed-dot")
       begin
         temp_dot.write(dot_file)
         temp_dot.close
-        puts "Running Graphviz"
         GraphViz.parse(temp_dot.path, path: "/usr/local/bin").output(svg: outfile)
-        puts " - Done Running Graphviz"
       ensure
         temp_dot.unlink
       end
-      puts "Fix Svg Diagram"
       FixSvgDiagram.create(outfile, outfile)
-      puts " - Done Fix Svg Diagram"
     end
   end
 end
