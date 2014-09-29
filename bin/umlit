@@ -1,20 +1,36 @@
 #!/usr/bin/env ruby
 
-require 'umlit'
+require "thor"
+require "umlit"
+require "rake"
 
-if ARGV.empty?
-  # TODO: output a usage doc and exit
-else
-  files = ARGV
-end
+class UmlitCLI < Thor
+  default_command :render
 
-files.each do |f|
-  puts "Rendering #{f}"
-  # TODO: Use a factory class here to select the appropriate diagram class
-  case File.extname(f)
-  when ".xsd"
-    Umlit::XsdClassDiagram.create(f)
-  when ".wsd"
-    Umlit::SequenceDiagram.create(f)
+  desc "render file(s)", "Render the file(s)"
+  option :verbose, type: :boolean, default: false, aliases: %w(v)
+  option :output_directory, aliases: %w(d)
+  option :outfile, aliases: %w(o)
+  def render(files)
+    files = [files] unless files.instance_of?(Array)
+    files.each do |f|
+      puts "Rendering #{f} with options: #{options.inspect}" if options[:verbose]
+      outdir = options[:output_directory] ? options[:output_directory] : File.dirname(f)
+      outfile = options[:outfile] || File.join(outdir, File.basename(f.ext(".svg")))
+
+      # TODO: Use a factory class here to select the appropriate diagram class
+      case File.extname(f)
+      when ".xsd"
+        Umlit::XsdClassDiagram.create(f, outfile)
+      when ".wsd"
+        Umlit::SequenceDiagram.create(f, outfile)
+      when ".dot"
+        Umlit::GraphvizDiagram.create(f, outfile)
+      when ".svg"
+        Umlit::FixSvgDiagram.create(f, outfile)
+      end
+    end
   end
 end
+
+UmlitCLI.start(ARGV)
