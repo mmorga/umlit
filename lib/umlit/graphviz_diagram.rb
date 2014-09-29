@@ -1,4 +1,3 @@
-require 'graphviz'
 require 'tempfile'
 
 module Umlit
@@ -26,7 +25,7 @@ module Umlit
       begin
         temp_dot.write(dot_file)
         temp_dot.close
-        GraphViz.parse(temp_dot.path, path: "/usr/local/bin").output(svg: outfile)
+        `dot -Tsvg -o#{outfile} #{temp_dot.path}`
       ensure
         temp_dot.unlink
       end
