@@ -83,8 +83,8 @@ module Umlit
 
           draw_title(svg)
           draw_actors_lifelines(svg)
-          draw_messages(svg)
           draw_activations(svg)
+          draw_messages(svg)
           draw_interactions(svg)
           draw_notes(svg)
         end
@@ -211,6 +211,9 @@ module Umlit
         elsif note[:position] == 'left of'
           x = @actor_mid_points[leftidx] - @actor_spacing[leftidx] + 15
           width = @actor_spacing[leftidx] - 30
+        elsif note[:position] == 'side'
+          x = @actor_mid_points.last + 15
+          width = @actor_spacing.last - 30
         end
         y1 = note[:start]
         y2 = note[:end]
@@ -219,7 +222,7 @@ module Umlit
         svg.path(d: "M #{x},#{y1} l #{width - 5},0 l 5,5 l -5,0 l 0,-5, l 5,5 l 0,#{y2 - y1 - 5} l #{-width},0 z", class: 'note-box')
         y1 += 3
         note[:messages].each do|message|
-          y1 += 10
+          y1 += 20
           svg.text_(message, x: x + 5, y: y1, class: 'note')
         end
       end
