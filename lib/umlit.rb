@@ -8,6 +8,7 @@ require "umlit/mustache_views"
 require "umlit/xsd_class_diagram"
 require "umlit/graphviz_diagram"
 require "umlit/fix_svg_diagram"
+require "umlit/network_architecture_parser"
 
 module Umlit
   # Your code goes here...
