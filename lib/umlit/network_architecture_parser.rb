@@ -26,9 +26,9 @@ class NetworkArchitectureParser < Parslet::Parser
     ).repeat.as(:string) >> str('"')
   end
 
-  rule(:input_def) { str("input") >> colon >> (connection_type_list | node_name | io_body) >> spaces? }
+  rule(:input_def) { str("input") >> colon >> (connection_type_list | node_name | io_body.repeat).as(:input) >> spaces? }
 
-  rule(:output_def) { str("output") >> colon >> (connection_type_list | node_name | io_body).as(:output) >> spaces? }
+  rule(:output_def) { str("output") >> colon >> (connection_type_list | node_name | io_body.repeat).as(:output) >> spaces? }
 
   rule(:icons) { str("icons") >> colon >> icon_list >> spaces? }
 
@@ -38,10 +38,11 @@ class NetworkArchitectureParser < Parslet::Parser
 
   rule(:icon_name) { match('\w').repeat(1).as(:icon_name) }
 
-  rule(:note_def) { str("note") >> colon >> note_body }
+  rule(:note_def) { str("note") >> colon >> note_body.as(:note) }
 
   rule(:note_body) do
-    str("{") >> spaces? >> title.maybe.as(:title) >> body.maybe.as(:body)
+    str("{") >> spaces? >> title.maybe.as(:title) >> spaces? >>
+    body.maybe.as(:body) >> spaces? >> str("}") >> spaces?
   end
 
   rule(:body) do
@@ -51,30 +52,28 @@ class NetworkArchitectureParser < Parslet::Parser
   rule(:node_name) { match('[\w\d]').repeat(1).as(:node_name) }
 
   rule(:node_type) do
+    str("vmSegment") | str("vmWareEsx") |
     str("cloudServers") | str("group") | str("haPair") | str("ispCloud") |
     str("privateCloud") | str("root") | str("san") | str("segment") |
     str("server") | str("vm") | str("alertLogic") | str("ciscoFirewall") |
-    str("f5LoadBalancer") | str("routingHardware") | str("vmWareEsx") |
-    str("vmSegment") | str("network")
+    str("f5LoadBalancer") | str("routingHardware") | str("network")
   end
 
   rule(:node_def) do
     node_type.as(:node_type) >> (spaces >> node_name).maybe >>
-    colon >> (node_body | node_title | node_count) >> spaces?
+    colon >> (node_body | node_title | node_count | node_name) >> spaces?
   end
 
   rule(:node_body) do
     str("{") >> spaces? >> title.maybe >> spaces? >>
     icons.maybe >> spaces? >>
     (node_def.repeat).as(:nodes) >> spaces? >>
-    input_def.maybe >> spaces? >> output_def.maybe >> spaces? >>
+    input_def.repeat >> spaces? >> output_def.repeat >> spaces? >>
     note_def.maybe >> spaces? >> str("}")
   end
 
-  rule(:node_ref) { node_type >> colon >> node_name }
-
   rule(:node_title) do
-    string.as(:node_title) >> node_count.maybe
+    string.as(:node_title) >> node_count.maybe >> spaces?
   end
 
   rule(:node_count) do
@@ -101,7 +100,7 @@ class NetworkArchitectureParser < Parslet::Parser
   rule(:multi_line_indented_string) { string.as(:multi_line_indented_string) }
   rule(:io_body) do
     str("{") >> spaces? >> connection_type_def >>
-    spaces? >> target >> spaces? >> str("}")
+    spaces? >> target >> spaces? >> str("}") >> spaces?
   end
 
   rule(:top) { spaces? >> node_def >>  spaces? }
