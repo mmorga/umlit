@@ -1,10 +1,12 @@
-require 'minitest/autorun'
-require "umlit"
-require "json"
+require 'test_helper'
 
 class TestNetworkArchitectureParser < MiniTest::Unit::TestCase
   def setup
     @parser = NetworkArchitectureParser.new
+  end
+
+  def test_comment
+    assert @parser.comment.parse("# nskl 08 -+!@#$%^&*()")
   end
 
   def test_connection_type_def
@@ -25,17 +27,25 @@ class TestNetworkArchitectureParser < MiniTest::Unit::TestCase
     assert @parser.icons.parse("icons: one, two, three\n   \n")
   end
 
-  def test_input_def
-    assert @parser.input_def.parse("input: exnet\n   \n")
+  def test_io_def
+    assert @parser.io_def.parse("input: exnet\n   \n")
+  end
+
+  def test_io_def_with_io_body
+    assert @parser.io_def.parse("output: {\n type: fiber, failover\n target: publicSegment1, publicSegment2\n}")
+  end
+
+  def test_io_def_with_node_name
+    assert @parser.io_def.parse("output: myNode_0\n")
   end
 
   def test_node_count
     res = @parser.node_count.parse('(2)')
-    assert res[:node_count][:number] == "2"
+    assert res[:node_count][:integer] == "2"
     res = @parser.node_count.parse('( 3 )')
-    assert res[:node_count][:number] == "3"
+    assert res[:node_count][:integer] == "3"
     res = @parser.node_count.parse('( 4 ) ')
-    assert res[:node_count][:number] == "4"
+    assert res[:node_count][:integer] == "4"
   end
 
   def test_node_def
@@ -86,18 +96,16 @@ NOTE
 )
   end
 
-  def test_output_def_with_connection_type_list
+  def test_integer
+    assert @parser.integer.parse("12")
+    assert @parser.integer.parse("3")
+    assert_raises(Parslet::ParseFailed) { @parser.integer.parse("1.5") }
+  end
+
+  def test_io_def_with_connection_type_list
     %w(fiber failover wan backup exnet).each do |c|
-      assert @parser.output_def.parse("output: #{c}\n")
+      assert @parser.io_def.parse("output: #{c}\n")
     end
-  end
-
-  def test_output_def_with_io_body
-    assert @parser.output_def.parse("output: {\n type: fiber, failover\n target: publicSegment1, publicSegment2\n}")
-  end
-
-  def test_output_def_with_node_name
-    assert @parser.output_def.parse("output: myNode_0\n")
   end
 
   def test_spaces
