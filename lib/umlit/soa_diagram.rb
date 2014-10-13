@@ -74,19 +74,19 @@ STANDARD
     label.gsub("\n", "\\n")
   end
 
-  def person(label, *args)
+  def person(label, *_args)
     "[label=\"#{esc(label)}\",image=\"person.png\",shape=\"plaintext\",height=\"0.75\",style=\"\"];"
   end
 
-  def component(label, *args)
+  def component(label, *_args)
     "[label=\"#{esc(label)}\"];"
   end
 
-  def service(label, *args)
+  def service(label, *_args)
     "[label=\"#{esc(label)}\",shape=\"umlservice\"];"
   end
 
-  def datastore(label, *args)
+  def datastore(label, *_args)
     "[label=\"#{esc(label)}\",shape=\"box\"];"
   end
 
