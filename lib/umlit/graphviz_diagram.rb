@@ -5,7 +5,7 @@ module Umlit
     attr_reader :infile, :outfile, :asset_path, :dot_file, :asset_names
 
     def self.create(infile, outfile = nil)
-      graphviz_diagram = GraphvizDiagram.new(infile, outfile)
+      GraphvizDiagram.new(infile, outfile)
     end
 
     def initialize(infile, outfile)

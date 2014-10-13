@@ -41,11 +41,11 @@ class TestNetworkArchitectureParser < MiniTest::Unit::TestCase
 
   def test_node_count
     res = @parser.node_count.parse('(2)')
-    assert res[:node_count][:integer] == "2"
+    assert res[:node_count] == "2"
     res = @parser.node_count.parse('( 3 )')
-    assert res[:node_count][:integer] == "3"
+    assert res[:node_count] == "3"
     res = @parser.node_count.parse('( 4 ) ')
-    assert res[:node_count][:integer] == "4"
+    assert res[:node_count] == "4"
   end
 
   def test_node_def

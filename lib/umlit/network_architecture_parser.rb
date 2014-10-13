@@ -8,7 +8,7 @@ class NetworkArchitectureParser < Parslet::Parser
   rule(:digit) { match('[0-9]') }
 
   rule(:integer) do
-    (str('0') | (match('[1-9]') >> digit.repeat)).as(:integer)
+    (str('0') | (match('[1-9]') >> digit.repeat))
   end
 
   rule(:spaces) { match('\s').repeat(1) }
@@ -21,7 +21,7 @@ class NetworkArchitectureParser < Parslet::Parser
   end
 
   # Begin structure rules
-  rule(:body) { str("body") >> colon >> string }
+  rule(:body) { str("body") >> colon >> string.as(:body) }
 
   rule(:connection_type_def) do
     str("type") >> spaces? >> colon >> spaces? >> connection_type_list
@@ -29,7 +29,7 @@ class NetworkArchitectureParser < Parslet::Parser
 
   rule(:connection_type_list) do
     (connection_type >>
-      (comma >> connection_type).repeat).as(:connection_type_list) >> spaces?
+      (comma >> connection_type).repeat).as(:connection_types) >> spaces?
   end
 
   rule(:connection_type) do
@@ -41,10 +41,10 @@ class NetworkArchitectureParser < Parslet::Parser
 
   rule(:icon_list) do
     spaces? >>
-    (icon_name >> (comma >> icon_name).repeat).maybe.as(:icon_list) >> spaces?
+    (icon_name >> (comma >> icon_name).repeat).maybe.as(:icons) >> spaces?
   end
 
-  rule(:icon_name) { match('\w').repeat(1).as(:icon_name) }
+  rule(:icon_name) { match('\w').repeat(1).as(:icon) }
 
   rule(:io_body) do
     str("{") >> spaces? >> connection_type_def >>
@@ -52,14 +52,14 @@ class NetworkArchitectureParser < Parslet::Parser
   end
 
   rule(:io_def) do
-    (str("output") | str("input")).as(:io) >> colon >>
-    (connection_type_list | node_name | io_body.repeat).as(:input) >> spaces?
+    (str("output") | str("input")).as(:direction) >> colon >>
+    (connection_type_list | node_name | io_body.repeat).as(:type) >> spaces?
   end
 
   rule(:node_body) do
     str("{") >> spaces? >> title.maybe >> spaces? >>
     icons.maybe >> spaces? >>
-    ((node_def | comment).repeat).as(:nodes) >> spaces? >>
+    (node_def.as(:node).repeat).as(:nodes) >> spaces? >>
     io_def.repeat >> spaces? >>
     note_def.maybe >> spaces? >> str("}")
   end
@@ -97,8 +97,8 @@ class NetworkArchitectureParser < Parslet::Parser
   rule(:title) { str("title") >> colon >> string.as(:title) >> spaces? }
 
   rule(:note_body) do
-    str("{") >> spaces? >> title.maybe.as(:title) >> spaces? >>
-    body.maybe.as(:body) >> spaces? >> str("}") >> spaces?
+    str("{") >> spaces? >> title.maybe >> spaces? >>
+    body.maybe >> spaces? >> str("}") >> spaces?
   end
 
   rule(:note_def) { str("note") >> colon >> note_body.as(:note) }
