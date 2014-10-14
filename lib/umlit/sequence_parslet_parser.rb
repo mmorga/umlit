@@ -18,7 +18,7 @@ module Umlit
     rule(:space)      { match('\s').repeat(1) }
     rule(:space?)     { space.maybe }
     rule(:string)     { match['a-z'].repeat(1) >> eol }
-    rule(:eol)        { match["\n"] }
+    rule(:eol)        { match['\n'] }
 
     # Things
     rule(:integer)    { match('[0-9]').repeat(1).as(:int) >> space? }

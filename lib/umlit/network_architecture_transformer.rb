@@ -7,7 +7,7 @@ module Umlit
     # of some kind built from the Parse Tree Transform.
     class Node
       attr_accessor :node_name, :node_type, :node_count, :nodes
-      attr_accessor :icons, :direction, :type, :title, :note
+      attr_accessor :icons, :title, :note, :io
       def self.create(src)
         if src.instance_of?(Hash)
           create_from_hash(src)
@@ -36,12 +36,11 @@ module Umlit
         @node_name = ""
         @title = ""
         @node_type = ""
-        @direction = ""
-        @type = ""
         @node_count = 0
         @note = {}
         @nodes = []
         @icons = []
+        @io = []
       end
 
       # Returns a hash, that will be turned into a JSON object and represent this
@@ -51,9 +50,8 @@ module Umlit
           JSON.create_id => self.class.name,
           node_name: node_name, node_type: node_type,
           node_count: node_count, nodes: nodes,
-          icons: icons, direction: direction,
-          type: type, title: title,
-          note: note
+          icons: icons, title: title,
+          note: note, io: io
         }
       end
 

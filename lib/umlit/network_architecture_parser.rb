@@ -38,30 +38,25 @@ module Umlit
         str("exnet")).as(:connection_type) >> spaces?
     end
 
-    rule(:icons) { str("icons") >> colon >> icon_list >> spaces? }
-
-    rule(:icon_list) do
-      spaces? >>
-      (icon_name >> (comma >> icon_name).repeat).maybe.as(:icons) >> spaces?
-    end
-
-    rule(:icon_name) { match('\w').repeat(1).as(:icon) }
-
     rule(:io_body) do
       str("{") >> spaces? >> connection_type_def >>
       spaces? >> target >> spaces? >> str("}") >> spaces?
     end
 
-    rule(:io_def) do
-      (str("output") | str("input")).as(:direction) >> colon >>
-      (connection_type_list | node_name | io_body.repeat).as(:type) >> spaces?
+    rule(:input_def) do
+      str("input") >> colon >>
+      (connection_type_list | node_name | io_body.repeat).as(:input) >> spaces?
+    end
+
+    rule(:output_def) do
+      str("output") >> colon >>
+      (connection_type_list | node_name | io_body.repeat).as(:output) >> spaces?
     end
 
     rule(:node_body) do
       str("{") >> spaces? >> title.maybe >> spaces? >>
-      icons.maybe >> spaces? >>
       (node_def.as(:node).repeat).as(:nodes) >> spaces? >>
-      io_def.repeat >> spaces? >>
+      (input_def | output_def).repeat.as(:io) >> spaces? >>
       note_def.maybe >> spaces? >> str("}")
     end
 
@@ -90,7 +85,9 @@ module Umlit
         str("cloudServers") | str("group") | str("haPair") | str("ispCloud") |
         str("privateCloud") | str("root") | str("san") | str("segment") |
         str("server") | str("vm") | str("alertLogic") | str("ciscoFirewall") |
-        str("f5LoadBalancer") | str("routingHardware")).as(:node_type)
+        str("f5LoadBalancer") | str("routingHardware") | str("qwest") |
+        str("teliasonera") | str("abovenet") |
+        str("level3") | str("equinix")).as(:node_type)
     end
 
     rule(:target) { str("target") >> colon >> node_list }
