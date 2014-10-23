@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestNode < MiniTest::Unit::TestCase
+    class TestNode < MiniTest::Test
       def setup
         @node = Node.new(swimlane: "Swim1", name: "Box2", decisions: [
           { decision: { message: "yes", node: { name: "Box3" } } },

@@ -33,7 +33,6 @@ module Umlit
       end
 
       def import_node(node)
-        # TODO: Should be setting the swimlane
         swimlanes.push(node.swimlane)
         # TODO: this should be a merge
         nodes[node.name] = node

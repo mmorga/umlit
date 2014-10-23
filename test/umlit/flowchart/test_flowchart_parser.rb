@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestFlowchartParser < MiniTest::Unit::TestCase
+    class TestFlowchartParser < MiniTest::Test
       def setup
         @parser = FlowchartParser.new
       end

@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestFlowchartTransformer < MiniTest::Unit::TestCase
+    class TestFlowchartTransformer < MiniTest::Test
       def setup
         s = "title: Simple test 1\n\n  # This is my comment\nBox1\n---\n<Swim1>Box2\n  (no) Box3\n  (yes) Box4\nBox3\n"
         parse_tree = FlowchartParser.new.parse(s)

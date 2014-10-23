@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestFlowBreak < MiniTest::Unit::TestCase
+    class TestFlowBreak < MiniTest::Test
       def setup
         @flow_break = FlowBreak.new
       end

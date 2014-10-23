@@ -1,7 +1,7 @@
 require 'test_helper'
 
 module Umlit
-  class TestNetworkArchitectureParser < MiniTest::Unit::TestCase
+  class TestNetworkArchitectureParser < MiniTest::Test
     def setup
       @parser = NetworkArchitectureParser.new
     end

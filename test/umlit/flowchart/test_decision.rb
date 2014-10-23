@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestDecision < MiniTest::Unit::TestCase
+    class TestDecision < MiniTest::Test
       def setup
         @decision = Decision.new(node: Node.new(name: "Node Name"), message: "hola")
       end

@@ -2,13 +2,13 @@ require 'test_helper'
 
 module Umlit
   module Flowchart
-    class TestSwimlaneAssigner < MiniTest::Test
+    class TestLayout < MiniTest::Test
       def setup
         s = "<Swim0>Box1\nBox1a\n<Swim1>Box2\n  (no) Box3\n  (yes) Box4\nBox3\n"
         parse_tree = FlowchartParser.new.parse(s)
         parse_tree = FlowchartTransformer.new.apply(parse_tree)
-        @swimlane_assigner = SwimlaneAssigner.new
-        @result = @swimlane_assigner.assign_swimlanes(parse_tree)
+        @result = SwimlaneAssigner.new.assign_swimlanes(parse_tree)
+        @layout = Layout.new
       end
 
       def test_assign_swimlanes
