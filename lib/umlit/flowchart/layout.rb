@@ -26,36 +26,35 @@ module Umlit
 
       def initialize
         @swimlanes = []
-        @nodes = []
+        @nodes = {}
         @layout = nil
         @x = 0
         @last_swimlane = 0
       end
 
       def import_node(node)
-        swimlanes.push(node[:swimlane]) if node.include?(:swimlane)
-        nodes.push(node[:node]) if node.include?(:node)
+        # TODO: Should be setting the swimlane
+        swimlanes.push(node.swimlane)
+        # TODO: this should be a merge
+        nodes[node.name] = node
       end
 
       def parse(parse_tree)
         @parse_tree = parse_tree
         parse_tree[:nodes].each do |node|
           import_node(node)
-          next unless node.include?(:decisions)
-          node[:decisions].each do |decision|
-            import_node(decision)
+          node.decisions.each do |decision|
+            import_node(decision.target_node)
           end
         end
-        @nodes.uniq!
         @swimlanes.uniq!
       end
 
       def layout_node(node)
-        next_swimlane = @last_swimlane
-        next_swimlane = swimlanes.index(node[:swimlane]) if node.include?(:swimlane)
-        puts "#{next_swimlane.inspect}, #{node[:swimlane]}"
+        next_swimlane = swimlanes.index(node.swimlane)
+        puts "#{next_swimlane.inspect}, #{node.swimlane}"
         @x += 1 unless next_swimlane != @last_swimlane
-        @layout[next_swimlane][@x] = node[:node]
+        @layout[next_swimlane][@x] = node
         @last_swimlane = next_swimlane
       end
 
@@ -67,9 +66,8 @@ module Umlit
         @last_swimlane = 0
         parse_tree[:nodes].each do |node|
           layout_node(node)
-          next unless node.include?(:decisions)
-          node[:decisions].each do |decision|
-            layout_node(decision)
+          node.decisions.each do |decision|
+            layout_node(decision.target_node)
           end
         end
       end
