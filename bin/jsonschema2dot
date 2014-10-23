@@ -1,0 +1,202 @@
+#!/usr/bin/env ruby
+
+require "json"
+require 'rack/utils'
+
+class JsonSchemaDiagramer
+  def self.diagram(schema)
+    json_schema_diagramer = JsonSchemaDiagramer.new
+    json_schema_diagramer.diagram(schema)
+  end
+
+  def initialize
+  end
+
+  def diagram(schema)
+    @top = "top"
+    @top = schema["title"] if schema.include?("title")
+    puts "digraph G {" # TODO give the graph a title based name
+    puts "    fontname=\"Helvetica-Bold\";"
+    puts "    node [shape=plaintext,fontname=\"Lucida-Console\"];"
+    diagram_schema(@top, schema)
+    puts "}"
+  end
+
+  def diagram_schema(name, schema)
+    add_note(name, schema) if schema.include?("title") || schema.include?("description")
+
+    puts "  #{name} [label=<#{label_for_schema(name, schema)}>];" # TODO: move this down to include table with attributes
+
+    add_properties("top", schema)
+
+    return unless schema.include?("definitions")
+    schema["definitions"].each do |k, v|
+      diagram_schema(k, v)
+      add_references(k, v)
+      add_properties(k, v)
+      add_additional_properties(k, v)
+    end
+  end
+
+  def label_for_schema(name, schema)
+    label = <<-TABLE
+<table border="1" cellborder="0" cellspacing="0">
+  <tr>
+    <td colspan="2">
+      <font face="Helvetica-Bold">#{name}</font>
+    </td>
+  </tr>
+  <hr/>
+  <tr>
+    <td align="left">
+      type
+    </td>
+    <td align="left">
+      #{Rack::Utils.escape_html(short_schema_description(schema))}
+    </td>
+  </tr>
+TABLE
+    %w(default enum not multipleOf minimum
+       exclusiveMinimum maximum exclusiveMaximum minLength maxLength pattern
+       format additionalItems minItems maxItems uniqueItems required
+       minProperties maxProperties dependencies patternProperties).each do |attr|
+      next unless schema.include?(attr)
+      label << <<-ATTRROW
+  <tr>
+    <td align="left">
+      #{attr}
+    </td>
+    <td align="left">
+      #{Rack::Utils.escape_html(schema[attr])}
+    </td>
+  </tr>
+ATTRROW
+    end
+    # TODO: handle attributes: properties, additionalProperties, items
+    label << add_properties_label(schema) if schema.include?("properties")
+    label << add_additional_properties_label(schema) if schema.include?("additionalProperties")
+    label << "</table>"
+    label
+  end
+
+  def add_properties_label(schema)
+    label = <<-PROPLABEL
+  <hr/>
+  <tr>
+    <td colspan="2">
+      <font face="Helvetica-Bold">Properties</font>
+    </td>
+  </tr>
+PROPLABEL
+    schema["properties"].each do |k, v|
+      label << <<-PROPITEM
+  <tr>
+    <td align="left">
+      #{k}
+    </td>
+    <td align="left">
+      #{Rack::Utils.escape_html(short_schema_description(v))}
+    </td>
+  </tr>
+PROPITEM
+    end
+    label
+  end
+
+  def add_additional_properties_label(schema)
+    label = <<-PROPLABEL
+  <hr/>
+  <tr>
+    <td colspan="2">
+      <font face="Helvetica-Bold">Additional Properties</font>
+    </td>
+  </tr>
+PROPLABEL
+    label << add_properties_label(schema["additionalProperties"])
+    label
+  end
+
+  def short_schema_description(schema)
+    return name(schema["$ref"]) if schema.include?("$ref")
+
+    special = %w(anyOf allOf oneOf).select { |a| schema.include?(a) }.first
+    if special
+      types = schema[special].map { |t| short_schema_description(t) }.join(", ")
+      return "#{special}: #{types}"
+    end
+
+    return schema unless schema.include?("type")
+
+    case schema["type"]
+    when "null", "boolean"
+      schema["type"]
+    when "string"
+      schema.delete("type")
+      "string " + schema.map { |k, v| "#{k}: #{v}" }.join(", ")
+    when "number", "integer"
+      n = "#{schema["type"]}"
+      n << ", multiple of #{schema["multipleOf"]}" if schema.include?("multipleOf")
+      if schema.include?("minimum") || schema.include?("maximum")
+        n << ", "
+        n << "#{schema["minimum"]} <" if schema.include?("minimum")
+        n << "=" unless schema.include?("minimum") && schema.include?("exclusiveMinimum") && schema["exclusiveMinimum"]
+        n << " n"
+        n << "<" if schema.include?("maximum")
+        n << "=" unless schema.include?("maximum") && schema.include?("exclusiveMaximum") && schema["exclusiveMaximum"]
+        n << " #{schema["maximum"]}" if schema.include?("maximum")
+      end
+      n
+    when "object"
+      "object"
+    when "array"
+      n = "array of "
+      n << "#{schema["minItems"]}-#{schema["maxItems"]} " if schema.include?("minItems") && schema.include?("maxItems")
+      n << "at least #{schema["minItems"]} " if schema.include?("minItems") && !schema.include?("maxItems")
+      n << "up to #{schema["maxItems"]} " if !schema.include?("minItems") && schema.include?("maxItems")
+      n << "unique " if schema.include?("uniqueItems") && schema["uniqueItems"]
+      n << "any" unless schema.include?("items")
+      n << short_schema_description(schema["items"]) if schema["items"].instance_of?(Hash)
+      n << schema["items"].map { |i| short_schema_description(i) }.join(", ") if schema["items"].instance_of?(Array)
+      n << " (additional items valid)" if schema.include?("additionalItems") && schema["additionalItems"]
+      n << " (additional items invalid)" if schema.include?("additionalItems") && !schema["additionalItems"]
+      n
+    end
+  end
+
+  def add_note(name, schema)
+  end
+
+  def name(s)
+    s.match(/\/([a-zA-Z]+)$/) do |m|
+      return m[1]
+    end
+    s
+  end
+
+  def add_references(parent, v)
+    if v["type"] == "array"
+      if v["items"] && v["items"]["$ref"]
+        puts "  #{parent}->#{name(v["items"]["$ref"])} [label=\"1..*\"];"
+      end
+    elsif v["$ref"]
+      puts "  #{parent}->#{name(v["$ref"])} [label=\"1\"];"
+    end
+  end
+
+  def add_properties(parent, h)
+    return unless h.include?("properties")
+    h["properties"].each do |_k, v|
+      add_references(parent, v)
+    end
+  end
+
+  def add_additional_properties(parent, h)
+    return unless h.include?("additionalProperties")
+    h["additionalProperties"].each do |_k, v|
+      add_references(parent, v)
+    end
+  end
+end
+
+top_schema = JSON.parse(File.read(ARGV.first))
+JsonSchemaDiagramer.diagram(top_schema)
