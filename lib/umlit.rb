@@ -1,3 +1,4 @@
+require "umlit/config"
 require "umlit/version"
 require "umlit/text"
 require "umlit/sequence"

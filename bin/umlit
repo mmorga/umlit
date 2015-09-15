@@ -4,6 +4,10 @@ require "thor"
 require "umlit"
 require "rake"
 
+# UmlitCLI implements the command line interface for the diagramming tool
+#
+# the render() method takes in a number of files and for each file:
+#    
 class UmlitCLI < Thor
   default_command :render
 
@@ -12,11 +16,13 @@ class UmlitCLI < Thor
   option :output_directory, aliases: %w(d)
   option :outfile, aliases: %w(o)
   def render(files)
-    files = [files] unless files.instance_of?(Array)
+    files = Array(files)
     files.each do |f|
-      puts "Rendering #{f} with options: #{options.inspect}" if options[:verbose]
-      outdir = options[:output_directory] ? options[:output_directory] : File.dirname(f)
-      outfile = options[:outfile] || File.join(outdir, File.basename(f.ext(".svg")))
+      config_options = options.dup
+      config_options[:input_file] = f
+      config = Umlit::Config.new(config_options)
+
+      puts "Rendering #{f} with options: #{options.inspect}" if config.verbose
 
       # TODO: Use a factory class here to select the appropriate diagram class
       case File.extname(f)

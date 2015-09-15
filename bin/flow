@@ -1,0 +1,41 @@
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "..", "lib")
+
+require "umlit"
+require "json"
+require "pp"
+require "set"
+
+s = File.read(ARGV.first)
+# puts s
+
+begin
+  out = Umlit::Flowchart::FlowchartParser.new.parse(s)
+rescue Parslet::ParseFailed => failure
+  puts failure.cause.ascii_tree
+end
+
+out = Umlit::Flowchart::FlowchartTransformer.new.apply(out)
+pp out.inspect
+
+flowchart = Umlit::Flowchart::Layout.new
+flowchart.parse(out)
+
+puts "\n\nSwimlanes:"
+pp flowchart.swimlanes
+
+puts "\n\nNodes:"
+pp flowchart.nodes
+
+flowchart.do_layout
+puts "\n\nLayout:"
+
+puts "<table>"
+flowchart.layout.each do |row|
+  puts "<tr>"
+  row.each do |cell|
+    puts "<td>#{cell}</td>"
+  end
+  puts "</tr>"
+end
+puts "</table>"

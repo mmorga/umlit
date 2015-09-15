@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require "umlit"
+require "json"
+require "pp"
+
+s = File.read(ARGV.first)
+# puts s
+
+begin
+  out = Umlit::NetworkArchitectureParser.new.parse(s)
+rescue Parslet::ParseFailed => failure
+  puts failure.cause.ascii_tree
+end
+
+out = Umlit::NetworkArchitectureTransformer.new.apply(out)
+pp out
+
+puts "\n\n"
+
+File.open("sample.json", "w") do |f|
+  f.write JSON.pretty_generate(doc: out)
+end
