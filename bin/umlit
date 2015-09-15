@@ -14,7 +14,7 @@ class UmlitCLI < Thor
   desc "render file(s)", "Render the file(s)"
   option :verbose, type: :boolean, default: false, aliases: %w(v)
   option :output_directory, aliases: %w(d)
-  option :outfile, aliases: %w(o)
+  option :output_file, aliases: %w(o)
   def render(files)
     files = Array(files)
     files.each do |f|
@@ -27,13 +27,13 @@ class UmlitCLI < Thor
       # TODO: Use a factory class here to select the appropriate diagram class
       case File.extname(f)
       when ".xsd"
-        Umlit::XsdClassDiagram.create(f, outfile)
+        Umlit::XsdClassDiagram.create(f, config.output_file)
       when ".wsd"
-        Umlit::SequenceDiagram.create(f, outfile)
+        Umlit::SequenceDiagram.create(f, config.output_file)
       when ".dot"
-        Umlit::GraphvizDiagram.create(f, outfile)
+        Umlit::GraphvizDiagram.create(f, config.output_file)
       when ".svg"
-        Umlit::FixSvgDiagram.create(f, outfile)
+        Umlit::FixSvgDiagram.create(f, config.output_file)
       end
     end
   end

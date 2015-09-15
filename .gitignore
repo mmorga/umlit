@@ -18,3 +18,4 @@ tmp
 umlit.sublime-workspace
 coverage
 private
+.DS_Store
